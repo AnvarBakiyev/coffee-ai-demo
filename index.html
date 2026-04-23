@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>DeLonghi Arte &mdash; Живой ИИ-магазин</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -170,7 +169,7 @@ footer em{font-style:normal;color:var(--sv)}
 </div></div></div>
 <div id="rp"><p>Сохраните профиль &mdash; страница эволюционирует при каждом возвращении</p>
 <button class="bp" style="padding:9px 20px;font-size:14px" onclick="openReg()">Зарегистрироваться &rarr;</button></div>
-<footer>Персонализировано через <em>Extella Intelligence</em> &middot; cspl=llm &middot; <span id="ftp"></span></footer>
+<footer>Персонализировано через <em>Extella Intelligence</em> &middot; GPT-4o-mini &middot; <span id="ftp"></span></footer>
 </div>
 <div id="rm" onclick="if(event.target===this)closeReg()"><div class="rmb">
 <button class="rmx" onclick="closeReg()">&times;</button>
@@ -184,7 +183,8 @@ footer em{font-style:normal;color:var(--sv)}
 <div class="ptt">&#9989; Покупка симулирована!</div>
 <div class="pts">Страница перестраивается через 3 сек...</div></div>
 <script>
-var SB="https://nsjwtywrnlvhnxuflbpg.supabase.co",SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0",ET="https://api.extella.ai",ETK="f105e093-effc-42d6-973c-39401ab77445";
+var SB="https://nsjwtywrnlvhnxuflbpg.supabase.co",SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0";
+var OAK="";
 var SBH={"apikey":SBK,"Authorization":"Bearer "+SBK,"Content-Type":"application/json"};
 var vid=null,vis=null,chH=[],chL=false,iCnt=0;
 function g(id){return document.getElementById(id)}
@@ -196,120 +196,72 @@ function sf(url,opts,ms){return new Promise(function(res,rej){var ac=new AbortCo
 function sbL(id){return sf(SB+"/rest/v1/visitors?id=eq."+id+"&limit=1",{headers:SBH},5000).then(function(r){return r.json()}).then(function(d){return Array.isArray(d)&&d.length?d[0]:null}).catch(function(){return null})}
 function sbI(d){sf(SB+"/rest/v1/visitors",{method:"POST",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
 function sbU(id,d){sf(SB+"/rest/v1/visitors?id=eq."+id,{method:"PATCH",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
-function xe(name,params){
-  return sf(ET+"/api/expert/run",{
+function loadKey(){
+  return fetch(SB+"/rest/v1/config?key=eq.openai_api_key&select=value",{headers:SBH})
+    .then(function(r){return r.json()})
+    .then(function(d){OAK=(Array.isArray(d)&&d.length)?d[0].value:"";console.log("[key] loaded:",OAK?"ok ("+(OAK.length)+" chars)":"EMPTY");return OAK})
+    .catch(function(e){console.warn("[key] error:",e.message);return ""})
+}
+function callOpenAI(prompt,jsonMode){
+  if(!OAK){console.error("[openai] no key!");return Promise.resolve(null)}
+  var body={model:"gpt-4o-mini",messages:[{role:"user",content:prompt}],temperature:0.7};
+  if(jsonMode)body.response_format={type:"json_object"};
+  return sf("https://api.openai.com/v1/chat/completions",{
     method:"POST",
-    headers:{"Content-Type":"application/json","X-Auth-Token":ETK},
-    body:JSON.stringify({expert_name:name,params:params||{}})
-  },90000)
+    headers:{"Authorization":"Bearer "+OAK,"Content-Type":"application/json"},
+    body:JSON.stringify(body)
+  },30000)
   .then(function(r){return r.json()})
   .then(function(d){
-    // cspl=llm returns: d = {result:{status:"success", result:{...content...}, func_name}}
-    // d.result = outer wrapper = {status, result:{content}, func_name}
-    // d.result.result = actual content
-    var outer=d.result||d;
-    console.log("[xe] "+name+" status="+outer.status+" has_result="+(outer.result!=null));
-    return outer;
+    var content=d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content;
+    if(!content){console.warn("[openai] no content:",d);return null}
+    if(jsonMode){try{return JSON.parse(content)}catch(e){console.warn("[openai] JSON parse error:",e);return null}}
+    return content
   })
-  .catch(function(e){console.warn("[xe]",name,e.message);return{status:"error",message:e.message}})
+  .catch(function(e){console.warn("[openai] error:",e.message);return null})
 }
 function fp(){var ua=navigator.userAgent,h=new Date().getHours();return{os:/Mac/.test(ua)&&!/iPhone|iPad/.test(ua)?"mac":/Win/.test(ua)?"win":"other",mob:/Mobile|Android|iPhone/.test(ua),sw:screen.width,h:h}}
 function dp(f){var s={coffee_lover:0,office_worker:0,design_lover:0,beginner:0};if(f.os==="mac")s.design_lover+=3;if(f.mob)s.beginner+=3;if(f.os==="win")s.office_worker+=2;if(f.sw>=1920)s.design_lover+=2;if(f.h>=7&&f.h<=9)s.office_worker+=3;else if(f.h>=21||f.h<=4)s.coffee_lover+=2;var t=Object.entries(s).sort(function(a,b){return b[1]-a[1]});return t[0][0]}
 var UL={coffee_lover:"Кофеман",office_worker:"Офисный работник",design_lover:"Любитель дизайна",beginner:"Новичок"};
-var UI={coffee_lover:"☕",office_worker:"💼",design_lover:"🎨",beginner:"🔰"};
-function renderPF(){
-  var p=(vis&&vis.profile)||{};
-  var tags=Object.entries(p.tags||{}).sort(function(a,b){return b[1]-a[1]}).slice(0,6);
-  var ec=(vis&&vis.events||[]).length;
-  g("pfi").innerHTML=
-    "<div class='pfs'><span class='pfl'>Тип</span><span class='pfv'>"+UI[p.user_type||"beginner"]+" "+UL[p.user_type||"beginner"]+"</span></div>"+
-    "<div class='pfs'><span class='pfl'>Визитов</span><span class='pfv'>"+(vis&&vis.visit_count||1)+"</span></div>"+
-    "<div class='pfs'><span class='pfl'>Действий</span><span class='pfv'>"+ec+"</span></div>"+
-    (tags.length?"<div class='pftg'>"+tags.map(function(e){return "<span class='pft'>"+e[0]+"</span>"}).join("")+"</div>":"")+
-    (vis&&vis.visit_count>1?"<div class='evn'>Профиль эволюционировал за "+vis.visit_count+" визитов</div>":"")
+var UI={coffee_lover:"&#9749;",office_worker:"&#128188;",design_lover:"&#127912;",beginner:"&#128304;"};
+function renderPF(){var p=(vis&&vis.profile)||{};var tags=Object.entries(p.tags||{}).sort(function(a,b){return b[1]-a[1]}).slice(0,6);var ec=(vis&&vis.events||[]).length;g("pfi").innerHTML="<div class='pfs'><span class='pfl'>Тип</span><span class='pfv'>"+UI[p.user_type||"beginner"]+" "+UL[p.user_type||"beginner"]+"</span></div><div class='pfs'><span class='pfl'>Визитов</span><span class='pfv'>"+(vis&&vis.visit_count||1)+"</span></div><div class='pfs'><span class='pfl'>Действий</span><span class='pfv'>"+ec+"</span></div>"+(tags.length?"<div class='pftg'>"+tags.map(function(e){return "<span class='pft'>"+e[0]+"</span>"}).join("")+"</div>":"")+((vis&&vis.visit_count>1)?"<div class='evn'>Профиль эволюционировал за "+vis.visit_count+" визитов</div>":"")}
+function renderNav(){var p=(vis&&vis.profile)||{};g("np").textContent=UI[p.user_type||"beginner"]+" "+(vis&&vis.name?vis.name:UL[p.user_type||"beginner"]);if(vis&&vis.visit_count>1)g("nv").textContent="Визит #"+vis.visit_count;if(vis&&vis.name)g("nrb").style.display="none";g("ftp").textContent=UL[p.user_type||"beginner"]}
+function renderC(c){if(!c||typeof c!=="object"){console.warn("[renderC] bad:",c);return}console.log("[renderC] title:",c.hero_title);var t=c.hero_title||"DeLonghi La Specialista Arte";var w=t.split(" ");w[w.length-1]="<span class='gw'>"+w[w.length-1]+"</span>";g("ht").innerHTML=w.join(" ");g("hb").innerHTML="<div class='bl2'></div><span>"+(c.badge||"Персональный выбор")+"</span><div class='bl2'></div>";g("hs").textContent=c.hero_subtitle||"";g("ha").textContent=c.product_angle||"";g("hc").textContent=c.cta_text||"Купить";if(c.key_features&&c.key_features.length)g("fg").innerHTML=c.key_features.map(function(f,i){return "<div class='fi fu' style='animation-delay:"+(i*.05)+"s'><div class='fc'>&#10003;</div><div class='ft'>"+f+"</div></div>"}).join("");g("it").textContent=c.interior_description||"";if(c.accessories&&c.accessories.length)g("acc").innerHTML=c.accessories.map(function(a){return "<div class='ait fu'><div class='air'><span class='ain'>"+a.name+"</span><span class='aip'>"+a.price+"</span></div><div class='aid'>"+a.reason+"</div></div>"}).join("");g("care").textContent=c.care_tip||"";g("chs").textContent=(vis&&vis.name)?"Привет, "+vis.name+"! Знаю ваш профиль":"Знает товар и ваш профиль"}
+function renderRV(d){if(!d||typeof d!=="object"){console.warn("[renderRV] bad:",d);return}var stars=function(n){return "&#9733;".repeat(Math.floor(n||4))+"&#9734;".repeat(5-Math.floor(n||4))};g("rvm").textContent="Собраны с "+(d.sources||[]).join(", ")+" · "+(d.total_reviews||0)+" отзывов";var h="<div class='scr fu'><div class='scn'>"+(d.overall_score||4.7)+"</div><div><div style='color:#fbbf24;font-size:14px'>"+stars(d.overall_score)+"</div><div class='scs'>"+(d.summary||"")+"</div></div></div>";if(d.pros||d.cons)h+="<div class='pc fu'><div><div class='pch' style='color:#10b981'>Плюсы</div>"+(d.pros||[]).map(function(x){return "<div class='pci'>+ "+x+"</div>"}).join("")+"</div><div><div class='pch' style='color:#ef4444'>Минусы</div>"+(d.cons||[]).map(function(x){return "<div class='pci'>- "+x+"</div>"}).join("")+"</div></div>";h+=(d.reviews||[]).map(function(r){return "<div class='rv fu'><div class='rvh'><div><span class='rva'>"+r.author+"</span><span class='rvs'>"+r.source+"</span></div><span style='color:#fbbf24;font-size:12px'>"+stars(r.rating)+"</span></div><div class='rvt'>"+r.text+"</div>"+(r.highlight?"<div class='rvq'>"+r.highlight+"</div>":"")+"<div class='rvd'>"+r.date+"</div></div>"}).join("");g("rvc").innerHTML=h;var cm="<div class='cmy fu'><div class='cr2'><span style='font-weight:700;color:var(--gold)'>DeLonghi La Specialista Arte</span><span style='font-weight:900'>89 990&#8381;</span></div><div style='font-size:12px;color:var(--gold)'>&#10003; Ваш выбор</div></div>";cm+=(d.comparison||[]).map(function(c){return "<div class='cit fu'><div class='cr2'><span class='cn'>"+c.name+"</span><span class='cp'>"+c.price+"</span></div><div class='cv'>"+c.verdict+"</div></div>"}).join("");g("cmpc").innerHTML=cm}
+function track(type,data){data=data||{};iCnt++;if(iCnt===3&&!(vis&&vis.name))g("rp").style.display="flex";if(!vis)return;var evs=(vis.events||[]).concat([Object.assign({type:type,ts:new Date().toISOString()},data)]).slice(-100);vis.events=evs;renderPF();sbU(vid,{events:evs,last_seen:new Date().toISOString()})}
+var PERSONAS={coffee_lover:"опытный кофеман, знает ристретто и лунго, важны давление и экстракция",office_worker:"занятой сотрудник, нужен быстрый кофе, важны скорость и надёжность",design_lover:"ценитель эстетики, кофемашина — часть интерьера, важен внешний вид",beginner:"первая кофемашина, нужно объяснить просто, важны гарантия и сервис"};
+function buildPersonalizePrompt(ut,vc,name,ti,isReg,isBuyer){
+  var persona=PERSONAS[ut]||PERSONAS.beginner;
+  var ctx="Первый визит. Стандартная персонализация.";
+  if(isBuyer)ctx="Пользователь УЖЕ КУПИЛ. hero_title про владение. cta_text=Купить аксессуары.";
+  else if(name&&vc>1)ctx="Возвращающийся, визит #"+vc+". Зовут: "+name+". Обращайся по имени в hero_title. badge: С возвращением!";
+  else if(vc>1)ctx="Анонимный возвращающийся, визит #"+vc+". Помним интересы: "+(ti||"—");
+  return "Ты — ИИ-консультант. Покупатель смотрит на DeLonghi La Specialista Arte (89990руб).\nПрофиль: "+persona+"\nКонтекст: "+ctx+"\nВерни ТОЛЬКО JSON без markdown:\n{\"hero_title\":\"до 8 слов\",\"hero_subtitle\":\"до 18 слов\",\"product_angle\":\"2 предложения\",\"key_features\":[\"фича 1\",\"фича 2\",\"фича 3\",\"фича 4\"],\"accessories\":[{\"name\":\"название\",\"reason\":\"почему\",\"price\":\"цена\"},{\"name\":\"н\",\"reason\":\"п\",\"price\":\"ц\"},{\"name\":\"н\",\"reason\":\"п\",\"price\":\"ц\"}],\"care_tip\":\"1-2 предл\",\"interior_description\":\"2 предл\",\"cta_text\":\"2-4 слова\",\"badge\":\"с эмодзи\"}";
 }
-function renderNav(){
-  var p=(vis&&vis.profile)||{};
-  g("np").textContent=UI[p.user_type||"beginner"]+" "+(vis&&vis.name?vis.name:UL[p.user_type||"beginner"]);
-  if(vis&&vis.visit_count>1)g("nv").textContent="Визит #"+vis.visit_count;
-  if(vis&&vis.name)g("nrb").style.display="none";
-  g("ftp").textContent=UL[p.user_type||"beginner"]
+function buildReviewsPrompt(ut){
+  var focus={coffee_lover:"качество эспрессо, давление, кофемолка",office_worker:"скорость, надёжность, простота",design_lover:"внешний вид, материалы",beginner:"простота, гарантия, сервис"}[ut]||"общее";
+  return "Аналитик отзывов о DeLonghi La Specialista Arte. Акцент: "+focus+".\nВерни ТОЛЬКО JSON:\n{\"overall_score\":4.7,\"total_reviews\":284,\"sources\":[\"Ozon\",\"Яндекс.Маркет\",\"iRecommend\"],\"summary\":\"2 предл\",\"reviews\":[{\"author\":\"имя\",\"source\":\"Ozon\",\"rating\":5,\"text\":\"2 предл\",\"date\":\"Март 2025\",\"highlight\":\"фраза\"},{\"author\":\"имя\",\"source\":\"Яндекс.Маркет\",\"rating\":4,\"text\":\"отзыв\",\"date\":\"Февраль 2025\",\"highlight\":\"фраза\"},{\"author\":\"имя\",\"source\":\"iRecommend\",\"rating\":5,\"text\":\"отзыв\",\"date\":\"Январь 2025\",\"highlight\":\"фраза\"}],\"pros\":[\"п1\",\"п2\",\"п3\"],\"cons\":[\"м1\",\"м2\"],\"comparison\":[{\"name\":\"Breville Barista Express\",\"price\":\"95000руб\",\"verdict\":\"сравнение\"},{\"name\":\"Gaggia Classic Pro\",\"price\":\"45000руб\",\"verdict\":\"сравнение\"},{\"name\":\"Sage Bambino Plus\",\"price\":\"65000руб\",\"verdict\":\"сравнение\"}]}";
 }
-function renderC(c){
-  if(!c||typeof c!=="object"){console.warn("[renderC] bad content",typeof c,c);return}
-  console.log("[renderC] hero_title:",c.hero_title);
-  var t=c.hero_title||"DeLonghi La Specialista Arte";
-  var w=t.split(" ");
-  w[w.length-1]="<span class='gw'>"+w[w.length-1]+"</span>";
-  g("ht").innerHTML=w.join(" ");
-  g("hb").innerHTML="<div class='bl2'></div><span>"+(c.badge||"Персональный выбор")+"</span><div class='bl2'></div>";
-  g("hs").textContent=c.hero_subtitle||"";
-  g("ha").textContent=c.product_angle||"";
-  g("hc").textContent=c.cta_text||"Купить";
-  if(c.key_features&&c.key_features.length)g("fg").innerHTML=c.key_features.map(function(f,i){
-    return "<div class='fi fu' style='animation-delay:"+(i*.05)+"s'><div class='fc'>✓</div><div class='ft'>"+f+"</div></div>"
-  }).join("");
-  g("it").textContent=c.interior_description||"";
-  if(c.accessories&&c.accessories.length)g("acc").innerHTML=c.accessories.map(function(a){
-    return "<div class='ait fu'><div class='air'><span class='ain'>"+a.name+"</span><span class='aip'>"+a.price+"</span></div><div class='aid'>"+a.reason+"</div></div>"
-  }).join("");
-  g("care").textContent=c.care_tip||"";
-  g("chs").textContent=vis&&vis.name?"Привет, "+vis.name+"! Знаю ваш профиль":"Знает товар и ваш профиль"
-}
-function renderRV(d){
-  if(!d||typeof d!=="object"){console.warn("[renderRV] bad data",typeof d,d);return}
-  console.log("[renderRV] overall_score:",d.overall_score);
-  var stars=function(n){return "★".repeat(Math.floor(n||4))+"☆".repeat(5-Math.floor(n||4))};
-  g("rvm").textContent="Собраны с "+(d.sources||[]).join(", ")+" · "+(d.total_reviews||0)+" отзывов";
-  var h="<div class='scr fu'><div class='scn'>"+(d.overall_score||4.7)+"</div><div>"+
-    "<div style='color:#fbbf24;font-size:14px'>"+stars(d.overall_score)+"</div>"+
-    "<div class='scs'>"+(d.summary||"")+"</div></div></div>";
-  if(d.pros||d.cons)h+="<div class='pc fu'><div><div class='pch' style='color:#10b981'>Плюсы</div>"+
-    (d.pros||[]).map(function(x){return "<div class='pci'>+ "+x+"</div>"}).join("")+"</div>"+
-    "<div><div class='pch' style='color:#ef4444'>Минусы</div>"+
-    (d.cons||[]).map(function(x){return "<div class='pci'>- "+x+"</div>"}).join("")+"</div></div>";
-  h+=(d.reviews||[]).map(function(r){
-    return "<div class='rv fu'><div class='rvh'><div><span class='rva'>"+r.author+"</span><span class='rvs'>"+r.source+"</span></div>"+
-      "<span style='color:#fbbf24;font-size:12px'>"+stars(r.rating)+"</span></div>"+
-      "<div class='rvt'>"+r.text+"</div>"+
-      (r.highlight?"<div class='rvq'>"+r.highlight+"</div>":"")+
-      "<div class='rvd'>"+r.date+"</div></div>"
-  }).join("");
-  g("rvc").innerHTML=h;
-  var cm="<div class='cmy fu'><div class='cr2'><span style='font-weight:700;color:var(--gold)'>DeLonghi La Specialista Arte</span><span style='font-weight:900'>89 990₽</span></div><div style='font-size:12px;color:var(--gold)'>Ваш выбор</div></div>";
-  cm+=(d.comparison||[]).map(function(c){
-    return "<div class='cit fu'><div class='cr2'><span class='cn'>"+c.name+"</span><span class='cp'>"+c.price+"</span></div><div class='cv'>"+c.verdict+"</div></div>"
-  }).join("");
-  g("cmpc").innerHTML=cm
-}
-function track(type,data){
-  data=data||{};iCnt++;
-  if(iCnt===3&&!(vis&&vis.name))g("rp").style.display="flex";
-  if(!vis)return;
-  var evs=(vis.events||[]).concat([Object.assign({type:type,ts:new Date().toISOString()},data)]).slice(-100);
-  vis.events=evs;renderPF();
-  sbU(vid,{events:evs,last_seen:new Date().toISOString()})
+function buildChatPrompt(ut,q,hist){
+  var persona={coffee_lover:"технически грамотно, используй термины",office_worker:"коротко и по делу",design_lover:"про внешний вид и интерьер",beginner:"простыми словами без жаргона"}[ut]||"просто";
+  return "Ты — консультант магазина. DeLonghi La Specialista Arte: давление 15 бар (рабочее 9), мощность 1450Вт, бойлер 2.3л, встроенная кофемолка 8 уровней, прогрев 40с, цена 89990руб. Конкуренты: Breville 95k, Gaggia Classic 45k, Sage Bambino 65k. Стиль ответа: "+persona+".\nИстория: "+hist+"\nВопрос: "+q+"\nОтвечай честно, 2-4 предложения.\nВерни ТОЛЬКО JSON: {\"answer\":\"ответ\",\"page_updates\":{\"key_features\":[\"фича 1\",\"фича 2\",\"фича 3\",\"фича 4\"],\"care_tip\":\"\",\"interior_description\":\"\"}}";
 }
 function loadC(){
   var p=(vis&&vis.profile)||{},ut=p.user_type||"beginner";
   var ti=Object.keys(p.tags||{}).slice(0,5).join(",");
-  var vc=String((vis&&vis.visit_count)||1);
-  console.log("[loadC] ut="+ut+" vc="+vc);
-  Promise.all([
-    xe("coffee_personalize",{user_type:ut,visit_count:vc,visitor_name:(vis&&vis.name)||"",top_interests:ti,has_registered:(vis&&vis.name)?"true":"false",has_purchased:(vis&&vis.events||[]).some(function(e){return e.type==="purchase"})?"true":"false"}),
-    xe("coffee_reviews",{user_type:ut})
-  ]).then(function(res){
-    console.log("[loadC] res[0]=",JSON.stringify(res[0]).substring(0,120));
-    console.log("[loadC] res[1]=",JSON.stringify(res[1]).substring(0,80));
-    // cspl=llm: res[N] = {status:"success", result:{...content...}, func_name}
-    // CORRECT: read res[N].result NOT res[N].content or res[N].data
-    var pContent=res[0]&&res[0].result;
-    var rData=res[1]&&res[1].result;
-    if(pContent&&typeof pContent==="object")renderC(pContent);
-    else console.warn("[loadC] no personalize content:",res[0]);
-    if(rData&&typeof rData==="object")renderRV(rData);
-    else console.warn("[loadC] no reviews data:",res[1]);
-  }).catch(function(e){console.error("[loadC] error:",e)})
+  var vc=(vis&&vis.visit_count)||1;
+  var isBuyer=(vis&&vis.events||[]).some(function(e){return e.type==="purchase"});
+  console.log("[loadC] ut="+ut+" vc="+vc+" key_ok="+(OAK.length>10));
+  var pPrompt=buildPersonalizePrompt(ut,vc,(vis&&vis.name)||"",(ti),!!(vis&&vis.name),isBuyer);
+  var rPrompt=buildReviewsPrompt(ut);
+  Promise.all([callOpenAI(pPrompt,true),callOpenAI(rPrompt,true)])
+  .then(function(res){
+    console.log("[loadC] personalize:",res[0]?"ok":"null","reviews:",res[1]?"ok":"null");
+    if(res[0])renderC(res[0]);
+    else console.warn("[loadC] personalize returned null");
+    if(res[1])renderRV(res[1]);
+    else console.warn("[loadC] reviews returned null");
+  })
 }
 function sq(q){g("ci").value=q;sm()}
 function sm(){
@@ -319,77 +271,52 @@ function sm(){
   inp.value="";chL=true;g("cs").disabled=true;
   var mc=g("chm");
   var emp=mc.querySelector(".che");if(emp)emp.parentNode.removeChild(emp);
-  mc.innerHTML+="<div class='mu'><div class='bb bbu'>"+q+"</div></div>"+
-    "<div class='ty' id='ty'><div class='tyd'></div><div class='tyd'></div><div class='tyd'></div></div>";
+  mc.innerHTML+="<div class='mu'><div class='bb bbu'>"+q+"</div></div><div class='ty' id='ty'><div class='tyd'></div><div class='tyd'></div><div class='tyd'></div></div>";
   mc.scrollTop=mc.scrollHeight;
   track("chat",{q:q.substring(0,80)});
-  xe("coffee_chat",{user_type:(vis&&vis.profile&&vis.profile.user_type)||"beginner",question:q,history:JSON.stringify(chH.slice(-6))})
+  callOpenAI(buildChatPrompt((vis&&vis.profile&&vis.profile.user_type)||"beginner",q,JSON.stringify(chH.slice(-6))),true)
   .then(function(r){
-    // cspl=llm: r = {status, result:{answer, page_updates}, func_name}
-    // CORRECT: r.result.answer NOT r.answer
-    var chatData=r&&r.result;
-    var ans=(chatData&&chatData.answer)||(r&&r.answer)||"Ошибка. Попробуйте ещё раз.";
-    console.log("[chat] ans:",ans.substring(0,80));
+    var ans=(r&&r.answer)||"Не удалось получить ответ. Попробуйте ещё раз.";
     chH.push({role:"user",content:q},{role:"assistant",content:ans});
     var ty=g("ty");if(ty)ty.parentNode.removeChild(ty);
     mc.innerHTML+="<div class='ma'><div class='bb bba'>"+ans+"</div></div>";
     mc.scrollTop=mc.scrollHeight;
-    // Re-render page from chat context
-    var pu=chatData&&chatData.page_updates;
-    if(pu){
-      if(pu.key_features&&pu.key_features.length)g("fg").innerHTML=pu.key_features.map(function(f,i){
-        return "<div class='fi fu' style='animation-delay:"+(i*.05)+"s'><div class='fc'>✓</div><div class='ft'>"+f+"</div></div>"
-      }).join("");
-      if(pu.care_tip)g("care").textContent=pu.care_tip;
-      if(pu.interior_description)g("it").textContent=pu.interior_description;
-    }
+    var pu=r&&r.page_updates;
+    if(pu&&pu.key_features&&pu.key_features.length)g("fg").innerHTML=pu.key_features.map(function(f,i){return "<div class='fi fu' style='animation-delay:"+(i*.05)+"s'><div class='fc'>&#10003;</div><div class='ft'>"+f+"</div></div>"}).join("");
+    if(pu&&pu.care_tip)g("care").textContent=pu.care_tip;
+    if(pu&&pu.interior_description)g("it").textContent=pu.interior_description;
     chL=false;g("cs").disabled=false
   })
 }
 function openReg(){g("rm").style.display="flex";g("rn").focus()}
 function closeReg(){g("rm").style.display="none"}
-function reg(){
-  var name=g("rn").value.trim(),email=g("re").value.trim();
-  if(!name){g("rer").textContent="Введите имя";g("rer").style.display="block";return}
-  if(!email||!email.includes("@")){g("rer").textContent="Введите корректный email";g("rer").style.display="block";return}
-  if(vis){vis.name=name;vis.email=email}
-  sbU(vid,{name:name,email:email});
-  closeReg();renderNav();g("rp").style.display="none";
-  showBn("Привет, "+name+"! Страница персонализирована для вас");
-  track("register",{name:name});loadC()
-}
-function simBuy(){
-  track("purchase",{product:"DeLonghi Arte",price:89990});
-  var pt=g("pt");pt.style.display="block";
-  setTimeout(function(){pt.style.display="none";loadC()},3000)
-}
+function reg(){var name=g("rn").value.trim(),email=g("re").value.trim();if(!name){g("rer").textContent="Введите имя";g("rer").style.display="block";return}if(!email||!email.includes("@")){g("rer").textContent="Введите корректный email";g("rer").style.display="block";return}if(vis){vis.name=name;vis.email=email}sbU(vid,{name:name,email:email});closeReg();renderNav();g("rp").style.display="none";showBn("Привет, "+name+"! Страница персонализирована для вас");track("register",{name:name});loadC()}
+function simBuy(){track("purchase",{product:"DeLonghi Arte",price:89990});var pt=g("pt");pt.style.display="block";setTimeout(function(){pt.style.display="none";loadC()},3000)}
 function showBn(txt){var b=g("evb");b.textContent=txt;b.style.display="block";setTimeout(function(){b.style.display="none"},6000)}
-function resetP(){
-  if(vid)sbU(vid,{profile:{user_type:"beginner",tags:{},price_segment:"budget"},events:[],visit_count:1,name:null,email:null});
-  document.cookie="vid=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";location.reload()
-}
+function resetP(){if(vid)sbU(vid,{profile:{user_type:"beginner",tags:{},price_segment:"budget"},events:[],visit_count:1,name:null,email:null});document.cookie="vid=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";location.reload()}
 g("sq1").addEventListener("click",function(){sq("Какое давление у этой машины?")});
 g("sq2").addEventListener("click",function(){sq("Как часто нужна чистка?")});
 g("sq3").addEventListener("click",function(){sq("Сравни с Breville")});
 g("ci").addEventListener("keydown",function(e){if(e.key==="Enter")sm()});
 g("cs").addEventListener("click",sm);
-// INIT: show page immediately, load from Supabase in background
 vid=gc("vid");if(!vid){vid=uid();sc("vid",vid,365)}
 var f=fp(),ut=dp(f);
 vis={id:vid,fingerprint:f,profile:{user_type:ut,tags:{},categories:{},price_segment:"budget"},events:[],visit_count:1};
 renderNav();renderPF();showApp();
-loadC();
-sbL(vid).then(function(dbVis){
-  if(dbVis){
-    vis=dbVis;vis.visit_count=(dbVis.visit_count||1)+1;
-    sbU(vid,{visit_count:vis.visit_count,last_seen:new Date().toISOString()});
-    if(vis.visit_count>1)showBn(vis.name?"С возвращением, "+vis.name+"! Визит #"+vis.visit_count:"С возвращением! Визит #"+vis.visit_count);
-    renderNav();renderPF();
-    loadC()
-  }else{
-    sbI(Object.assign({},vis,{created_at:new Date().toISOString(),last_seen:new Date().toISOString()}))
-  }
-}).catch(function(e){console.warn("Supabase:",e.message)});
+loadKey().then(function(){
+  loadC();
+  sbL(vid).then(function(dbVis){
+    if(dbVis){
+      vis=dbVis;vis.visit_count=(dbVis.visit_count||1)+1;
+      sbU(vid,{visit_count:vis.visit_count,last_seen:new Date().toISOString()});
+      if(vis.visit_count>1)showBn(vis.name?"С возвращением, "+vis.name+"! Визит #"+vis.visit_count:"С возвращением! Визит #"+vis.visit_count);
+      renderNav();renderPF();
+      loadC()
+    }else{
+      sbI(Object.assign({},vis,{created_at:new Date().toISOString(),last_seen:new Date().toISOString()}))
+    }
+  }).catch(function(e){console.warn("SB:",e.message)})
+});
 track("page_view");
 </script>
 </body>
