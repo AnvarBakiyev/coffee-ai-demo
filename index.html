@@ -204,5 +204,7 @@ const obs=new IntersectionObserver(function(entries){entries.forEach(function(e)
 const init=async()=>{vid=gc("vid");if(!vid){vid=uid();sc("vid",vid,365);}vis=await sbL(vid);if(!vis){const f=fp(),d=dp(f);const nv={id:vid,fingerprint:f,profile:{user_type:d.user_type,confidence:d.confidence,tags:{},categories:{},price_segment:"budget"},events:[],visit_count:1,created_at:new Date().toISOString(),last_seen:new Date().toISOString()};await sbI(nv);vis=nv;}else{vis.visit_count=(vis.visit_count||1)+1;await sbU(vid,{visit_count:vis.visit_count,last_seen:new Date().toISOString()});if(vis.visit_count>1)showBn(vis.name?"С возвращением, "+vis.name+"! Визит #"+vis.visit_count+" — страница эволюционировала":"С возвращением! Визит #"+vis.visit_count+" — страница обновлена под вас");}renderNav();renderPF();g("ld").style.opacity="0";setTimeout(function(){g("ld").style.display="none";},500);g("app").style.opacity="1";await loadC();track("page_view",{});["fg","rvc","cmpc"].forEach(function(id){const el=g(id);if(el)obs.observe(el);});};
 init().catch(console.error);
 </script>
+<script>// SAFETY: show page after 3s no matter what
+setTimeout(function(){var l=document.getElementById('ld');if(l&&l.style.display!=='none'){console.warn('[safety] 3s timeout — showing page');l.style.opacity='0';setTimeout(function(){l.style.display='none';},600);var a=document.getElementById('app');if(a)a.style.opacity='1';}},3000);</script>
 </body>
 </html>
