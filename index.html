@@ -3,46 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CoffeeShop — Персонализация...</title>
+<title>CoffeeShop — Собираем ваш сайт...</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"DM Sans",sans-serif;background:#080808;color:#E8E8E8;min-height:100vh;display:flex;align-items:center;justify-content:center}
-@keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes progress{from{width:0}to{width:100%}}
-.wrap{width:100%;max-width:480px;padding:48px 32px;text-align:center}
-.icon{font-size:56px;margin-bottom:28px;animation:blink 2s infinite}
-.title{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:8px;color:#fff}
-.sub{font-size:14px;color:rgba(255,255,255,.35);margin-bottom:40px;font-weight:300}
-.steps{display:flex;flex-direction:column;gap:12px;margin-bottom:40px;text-align:left}
-.step{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:13px;color:rgba(255,255,255,.4);transition:all .4s}
+@keyframes bl{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@keyframes fade-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.wrap{width:100%;max-width:520px;padding:48px 32px;animation:fade-in .5s ease}
+.icon{font-size:52px;margin-bottom:24px;animation:blink 2.5s infinite;display:block;text-align:center}
+.title{font-size:26px;font-weight:900;letter-spacing:-1px;margin-bottom:6px;color:#fff;text-align:center}
+.sub{font-size:13px;color:rgba(255,255,255,.3);margin-bottom:36px;text-align:center;font-weight:300}
+.steps{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.step{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);font-size:13px;color:rgba(255,255,255,.3);transition:all .5s}
 .step.active{background:rgba(197,126,51,.08);border-color:rgba(197,126,51,.2);color:#C57E33}
-.step.done{background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.15);color:rgba(16,185,129,.8)}
-.step-icon{font-size:16px;flex-shrink:0;width:20px;text-align:center}
-.step-text{flex:1}
-.step-status{font-family:"DM Mono",monospace;font-size:10px;opacity:.6}
-.bar{height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:16px}
-.bar-fill{height:100%;background:linear-gradient(90deg,#C57E33,#d4984f);border-radius:2px;width:0;transition:width .6s ease}
-.hint{font-size:11px;color:rgba(255,255,255,.2);font-family:"DM Mono",monospace;letter-spacing:.05em}
-.profile-detected{margin-top:20px;padding:12px 20px;border-radius:8px;background:rgba(197,126,51,.1);border:1px solid rgba(197,126,51,.2);font-size:13px;color:#C57E33;display:none}
+.step.done{background:rgba(16,185,129,.05);border-color:rgba(16,185,129,.12);color:rgba(16,185,129,.7)}
+.step-icon{font-size:15px;width:22px;text-align:center;flex-shrink:0}
+.step-text{flex:1;line-height:1.4}
+.step-val{font-family:"DM Mono",monospace;font-size:10px;opacity:.7;text-align:right;max-width:140px}
+.bar-wrap{height:1px;background:rgba(255,255,255,.06);border-radius:1px;overflow:hidden;margin-bottom:20px}
+.bar{height:100%;background:linear-gradient(90deg,#C57E33,#d4984f);width:0;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.hint{font-size:11px;color:rgba(255,255,255,.15);font-family:"DM Mono",monospace;text-align:center;letter-spacing:.05em;min-height:16px}
+.fp-card{margin-top:20px;padding:14px 18px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);font-size:12px;color:rgba(255,255,255,.3);font-family:"DM Mono",monospace;display:none;line-height:1.8}
+.fp-card span{color:#C57E33}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="icon">☕</div>
+  <div class="icon">&#9749;</div>
   <div class="title">Собираем ваш сайт</div>
-  <div class="sub">Каждый видит свою версию — создаём прямо сейчас</div>
+  <div class="sub">Каждый пользователь получает уникальную страницу</div>
   <div class="steps">
-    <div class="step" id="s1"><div class="step-icon">🔍</div><div class="step-text">Определяем ваш профиль</div><div class="step-status" id="s1s">...</div></div>
-    <div class="step" id="s2"><div class="step-icon">🧠</div><div class="step-text">ИИ генерирует контент под вас</div><div class="step-status" id="s2s">ожидание</div></div>
-    <div class="step" id="s3"><div class="step-icon">🎨</div><div class="step-text">Собираем страницу из компонентов</div><div class="step-status" id="s3s">ожидание</div></div>
-    <div class="step" id="s4"><div class="step-icon">✨</div><div class="step-text">Ваш персональный сайт готов</div><div class="step-status" id="s4s">ожидание</div></div>
+    <div class="step" id="s1"><div class="step-icon">&#128269;</div><div class="step-text">Считываем ваш цифровой след</div><div class="step-val" id="sv1">...</div></div>
+    <div class="step" id="s2"><div class="step-icon">&#129504;</div><div class="step-text">ИИ решает как выглядит ваш сайт</div><div class="step-val" id="sv2">ожидание</div></div>
+    <div class="step" id="s3"><div class="step-icon">&#127912;</div><div class="step-text">Рендерим уникальный HTML</div><div class="step-val" id="sv3">ожидание</div></div>
+    <div class="step" id="s4"><div class="step-icon">&#10024;</div><div class="step-text">Ваша персональная страница готова</div><div class="step-val" id="sv4">ожидание</div></div>
   </div>
-  <div class="bar"><div class="bar-fill" id="bar"></div></div>
-  <div class="hint" id="hint">coffee-ai-demo.vercel.app</div>
-  <div class="profile-detected" id="pdet"></div>
+  <div class="bar-wrap"><div class="bar" id="bar"></div></div>
+  <div class="hint" id="hint">анализируем...</div>
+  <div class="fp-card" id="fpcard"></div>
 </div>
 <script>
 var SB="https://nsjwtywrnlvhnxuflbpg.supabase.co",SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0",ET="https://api.extella.ai",ETK="f105e093-effc-42d6-973c-39401ab77445";
@@ -50,104 +50,179 @@ var SBH={"apikey":SBK,"Authorization":"Bearer "+SBK,"Content-Type":"application/
 var OAK="";
 
 function g(id){return document.getElementById(id)}
-function setStep(n,status,text){
-  var s=g("s"+n);var st=g("s"+n+"s");
-  s.className="step "+(status==="active"?"active":status==="done"?"done":"");
-  if(st)st.textContent=text||"";
+function step(n,state,val){
+  g("s"+n).className="step "+state;
+  if(val!==undefined)g("sv"+n).textContent=val;
   g("bar").style.width=(n*25)+"%";
 }
+function hint(t){g("hint").textContent=t}
+
 function sf(url,opts,ms){return new Promise(function(res,rej){var ac=new AbortController();var t=setTimeout(function(){ac.abort()},ms||5000);fetch(url,Object.assign({},opts||{},{signal:ac.signal})).then(function(r){clearTimeout(t);res(r)}).catch(function(e){clearTimeout(t);rej(e)})})}
-function sbI(d){sf(SB+"/rest/v1/visitors",{method:"POST",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
-function sbL(id){return sf(SB+"/rest/v1/visitors?id=eq."+id+"&limit=1",{headers:SBH},5000).then(function(r){return r.json()}).then(function(d){return Array.isArray(d)&&d.length?d[0]:null}).catch(function(){return null})}
-function sbU(id,d){sf(SB+"/rest/v1/visitors?id=eq."+id,{method:"PATCH",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
 function gc(n){var c=document.cookie.split(";").map(function(x){return x.trim()}).find(function(x){return x.startsWith(n+"=")});return c?c.split("=")[1]:null}
 function sc(n,v,d){var e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+"="+v+";expires="+e.toUTCString()+";path=/;SameSite=Lax"}
 function uid(){return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==="x"?r:(r&3|8)).toString(16)})}
-function fp(){var ua=navigator.userAgent,h=new Date().getHours();return{os:/Mac/.test(ua)&&!/iPhone|iPad/.test(ua)?"mac":/Win/.test(ua)?"win":"other",mob:/Mobile|Android|iPhone/.test(ua),sw:screen.width,h:h}}
-function dp(f){
+
+function sbL(id){return sf(SB+"/rest/v1/visitors?id=eq."+id+"&limit=1",{headers:SBH},5000).then(function(r){return r.json()}).then(function(d){return Array.isArray(d)&&d.length?d[0]:null}).catch(function(){return null})}
+function sbI(d){sf(SB+"/rest/v1/visitors",{method:"POST",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
+function sbU(id,d){sf(SB+"/rest/v1/visitors?id=eq."+id,{method:"PATCH",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
+
+// Full fingerprint — every signal
+function getFingerprint(){
+  var ua=navigator.userAgent;
+  var h=new Date().getHours();
+  var day=new Date().getDay(); // 0=Sun, 6=Sat
+  var os=/Mac/.test(ua)&&!/iPhone|iPad/.test(ua)?"mac":/Win/.test(ua)?"win":/Linux/.test(ua)?"linux":"other";
+  var br=/Chrome/.test(ua)&&!/Edge/.test(ua)?"chrome":/Firefox/.test(ua)?"firefox":/Safari/.test(ua)&&!/Chrome/.test(ua)?"safari":/Edge/.test(ua)?"edge":"other";
+  var mob=/Mobile|Android|iPhone|iPad/.test(ua);
+  return {
+    os:os, br:br, mob:mob,
+    sw:screen.width, sh:screen.height,
+    dpr:window.devicePixelRatio||1,
+    h:h, day:day,
+    tz:Intl.DateTimeFormat().resolvedOptions().timeZone||"unknown",
+    lang:navigator.language||"ru",
+    cores:navigator.hardwareConcurrency||2,
+    mem:navigator.deviceMemory||4
+  };
+}
+
+function detectProfile(fp){
   var s={coffee_lover:0,office_worker:0,design_lover:0,beginner:0};
-  if(f.os==="mac")s.design_lover+=3;
-  if(f.mob)s.beginner+=3;
-  if(f.os==="win")s.office_worker+=2;
-  if(f.sw>=1920)s.design_lover+=2;
-  if(f.h>=7&&f.h<=9)s.office_worker+=3;
-  else if(f.h>=21||f.h<=4)s.coffee_lover+=2;
+  // OS signals
+  if(fp.os==="mac")s.design_lover+=3;
+  if(fp.os==="win")s.office_worker+=2;
+  if(fp.os==="linux")s.coffee_lover+=2;
+  // Screen
+  if(fp.sw>=2560)s.design_lover+=3;
+  else if(fp.sw>=1920)s.design_lover+=2;
+  else if(fp.sw>=1440)s.office_worker+=1;
+  // Mobile
+  if(fp.mob)s.beginner+=4;
+  // Time
+  if(fp.h>=7&&fp.h<=9)s.office_worker+=3;
+  else if(fp.h>=21||fp.h<=4)s.coffee_lover+=3;
+  else if(fp.h>=12&&fp.h<=14)s.office_worker+=1;
+  // Day
+  if(fp.day===0||fp.day===6)s.coffee_lover+=2; // weekend
+  // Browser
+  if(fp.br==="firefox")s.coffee_lover+=1;
+  if(fp.br==="safari"&&fp.os==="mac")s.design_lover+=1;
+  // Hardware (proxy for sophistication)
+  if(fp.cores>=8)s.design_lover+=1;
+  if(fp.mem>=16)s.design_lover+=1;
+  if(fp.dpr>=2)s.design_lover+=1;
   var t=Object.entries(s).sort(function(a,b){return b[1]-a[1]});
   return t[0][0];
 }
-var LABELS={coffee_lover:"Кофеман ☕",office_worker:"Офисный работник 💼",design_lover:"Любитель дизайна 🎨",beginner:"Новичок 🔰"};
+
+var LABELS={
+  coffee_lover:"Кофеман &#9749;",
+  office_worker:"Офисный работник &#128188;",
+  design_lover:"Любитель дизайна &#127912;",
+  beginner:"Новичок &#128304;"
+};
 
 async function main(){
-  // Step 1: detect profile
-  setStep(1,"active","определяем...");
-  var f=fp();
-  var ut=dp(f);
-  await new Promise(function(r){setTimeout(r,600)});
-  setStep(1,"done",LABELS[ut]);
-  g("pdet").style.display="block";
-  g("pdet").textContent="Ваш профиль: "+LABELS[ut]+" · "+f.os.toUpperCase()+" · "+f.sw+"px";
+  // STEP 1: fingerprint
+  step(1,"active","считываем...");
+  hint("определяем ваш профиль по 12 сигналам");
+  var fp=getFingerprint();
+  var ut=detectProfile(fp);
 
-  // Load OpenAI key from Supabase config
+  await new Promise(function(r){setTimeout(r,700)});
+
+  var fpStr=[
+    fp.os.toUpperCase(),
+    fp.sw+"x"+fp.sh,
+    (fp.h<10?"0":"")+fp.h+":xx",
+    fp.mob?"mobile":"desktop",
+    fp.br,
+    fp.tz.split("/")[1]||fp.tz
+  ].join(" · ");
+
+  step(1,"done",fpStr);
+  g("fpcard").style.display="block";
+  g("fpcard").innerHTML=
+    "&#128269; <span>"+LABELS[ut]+"</span><br>"+
+    "OS: <span>"+fp.os+"</span> &nbsp; Экран: <span>"+fp.sw+"px</span> &nbsp; Время: <span>"+fp.h+":00</span><br>"+
+    "Браузер: <span>"+fp.br+"</span> &nbsp; Ядер: <span>"+fp.cores+"</span> &nbsp; "+fp.tz;
+  hint("профиль определён: "+fpStr);
+
+  // Load OpenAI key
   try{
     var kr=await sf(SB+"/rest/v1/config?key=eq.openai_api_key&select=value",{headers:SBH},5000);
     var kd=await kr.json();
     OAK=(Array.isArray(kd)&&kd.length)?kd[0].value:"";
-  }catch(e){console.warn("key error",e)}
+  }catch(e){console.warn("key",e)}
 
-  // Supabase visitor tracking
+  // Visitor tracking
   var vid=gc("vid");
   if(!vid){vid=uid();sc("vid",vid,365)}
   var vis=await sbL(vid);
   var vc=1;
-  if(vis){vc=(vis.visit_count||1)+1;sbU(vid,{visit_count:vc,last_seen:new Date().toISOString()})}
-  else{sbI({id:vid,fingerprint:f,profile:{user_type:ut,tags:{},price_segment:"budget"},events:[{type:"page_view",ts:new Date().toISOString()}],visit_count:1,created_at:new Date().toISOString(),last_seen:new Date().toISOString()})}
+  var visName="";
+  var hasBought=false;
+  if(vis){
+    vc=(vis.visit_count||1)+1;
+    visName=(vis.name)||"";
+    hasBought=(vis.events||[]).some(function(e){return e.type==="purchase"});
+    sbU(vid,{visit_count:vc,last_seen:new Date().toISOString(),profile:{user_type:ut,tags:{},price_segment:"budget"}});
+  }else{
+    sbI({id:vid,fingerprint:fp,profile:{user_type:ut,tags:{},price_segment:"budget"},events:[{type:"page_view",ts:new Date().toISOString()}],visit_count:1,created_at:new Date().toISOString(),last_seen:new Date().toISOString()});
+  }
 
-  // Step 2: call coffee_build_page expert
-  setStep(2,"active","генерируем...");
-  g("hint").textContent="GPT-4o-mini создаёт контент под ваш профиль";
+  // STEP 2: GPT generates unique page
+  step(2,"active","GPT думает...");
+  hint("ИИ анализирует все 12 сигналов и решает как выглядит ваш сайт");
 
   var params={
     user_type:ut,
     visit_count:String(vc),
-    visitor_name:(vis&&vis.name)||"",
-    has_purchased:((vis&&vis.events||[]).some(function(e){return e.type==="purchase"}))?"true":"false",
+    visitor_name:visName,
+    has_purchased:hasBought?"true":"false",
     openai_key:OAK,
-    api_token:ETK
+    api_token:ETK,
+    fingerprint_json:JSON.stringify(fp)
   };
 
   var pageHTML=null;
+  var templateUsed="";
   try{
     var r=await sf(ET+"/api/expert/run",{
       method:"POST",
       headers:{"Content-Type":"application/json","X-Auth-Token":ETK},
       body:JSON.stringify({expert_name:"coffee_build_page",params:params})
-    },60000);
+    },90000);
     var d=await r.json();
-    var result=d.result||d;
+    var result=(d.result&&d.result.result)||d.result||d;
     if(result&&result.html){
       pageHTML=result.html;
-      setStep(2,"done","готово");
+      templateUsed=result.template||"";
+      step(2,"done",result.headline?result.headline.substring(0,30)+"...":"готово");
     }else{
-      setStep(2,"done","error: "+JSON.stringify(result).substring(0,80));
+      step(2,"done","error");
+      hint("Ошибка: "+JSON.stringify(result).substring(0,100));
+      return;
     }
   }catch(e){
-    setStep(2,"done","error: "+e.message);
-    g("hint").textContent="Ошибка генерации: "+e.message;
+    step(2,"done","error: "+e.message.substring(0,30));
+    hint("Ошибка: "+e.message);
     return;
   }
 
-  // Step 3: assemble
-  setStep(3,"active","собираем...");
-  g("hint").textContent="Рендерим вашу уникальную страницу";
+  // STEP 3: render
+  step(3,"active","рендерим...");
+  hint("собираем HTML из компонентов-экспертов");
   await new Promise(function(r){setTimeout(r,400)});
-  setStep(3,"done","собрано");
+  step(3,"done",templateUsed);
 
-  // Step 4: inject
-  setStep(4,"active","готово!");
+  // STEP 4: inject
+  step(4,"active","готово!");
   g("bar").style.width="100%";
-  await new Promise(function(r){setTimeout(r,300)});
+  hint("ваша уникальная страница создана");
+  await new Promise(function(r){setTimeout(r,500)});
 
-  // Replace entire page with generated HTML
+  // Replace page
   document.open();
   document.write(pageHTML);
   document.close();
@@ -156,6 +231,7 @@ async function main(){
 main().catch(function(e){
   console.error(e);
   g("hint").textContent="Ошибка: "+e.message;
+  step(1,"done","error");
 });
 </script>
 </body>
