@@ -3,61 +3,329 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CoffeeShop — Собираем ваш сайт...</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>CoffeeShop — Персонализация</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"DM Sans",sans-serif;background:#080808;color:#E8E8E8;min-height:100vh;display:flex;align-items:center;justify-content:center}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-@keyframes bl{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
-@keyframes fade-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.wrap{width:100%;max-width:520px;padding:48px 32px;animation:fade-in .5s ease}
-.icon{font-size:52px;margin-bottom:24px;animation:blink 2.5s infinite;display:block;text-align:center}
-.title{font-size:26px;font-weight:900;letter-spacing:-1px;margin-bottom:6px;color:#fff;text-align:center}
-.sub{font-size:13px;color:rgba(255,255,255,.3);margin-bottom:36px;text-align:center;font-weight:300}
-.steps{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
-.step{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);font-size:13px;color:rgba(255,255,255,.3);transition:all .5s}
-.step.active{background:rgba(197,126,51,.08);border-color:rgba(197,126,51,.2);color:#C57E33}
-.step.done{background:rgba(16,185,129,.05);border-color:rgba(16,185,129,.12);color:rgba(16,185,129,.7)}
-.step-icon{font-size:15px;width:22px;text-align:center;flex-shrink:0}
-.step-text{flex:1;line-height:1.4}
-.step-val{font-family:"DM Mono",monospace;font-size:10px;opacity:.7;text-align:right;max-width:140px}
-.bar-wrap{height:1px;background:rgba(255,255,255,.06);border-radius:1px;overflow:hidden;margin-bottom:20px}
-.bar{height:100%;background:linear-gradient(90deg,#C57E33,#d4984f);width:0;transition:width .8s cubic-bezier(.4,0,.2,1)}
-.hint{font-size:11px;color:rgba(255,255,255,.15);font-family:"DM Mono",monospace;text-align:center;letter-spacing:.05em;min-height:16px}
-.fp-card{margin-top:20px;padding:14px 18px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);font-size:12px;color:rgba(255,255,255,.3);font-family:"DM Mono",monospace;display:none;line-height:1.8}
-.fp-card span{color:#C57E33}
+:root{
+  --bg:#0A0A0A;
+  --bg2:#111111;
+  --gold:#C57E33;
+  --goldl:#d4984f;
+  --border:rgba(255,255,255,.07);
+  --text:rgba(255,255,255,.85);
+  --muted:rgba(255,255,255,.3);
+  --faint:rgba(255,255,255,.06);
+}
+body{
+  font-family:"DM Sans",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+/* Dot grid — Extella brand */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:28px 28px;
+  pointer-events:none;
+  z-index:0;
+}
+/* Subtle radial glow */
+body::after{
+  content:"";
+  position:fixed;
+  top:50%;left:50%;
+  width:800px;height:800px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(197,126,51,.04) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+.container{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:560px;
+  padding:0 24px;
+}
+/* Logo bar */
+.logo-bar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:52px;
+  opacity:.5;
+}
+.logo-mark{
+  width:28px;height:28px;
+  background:var(--gold);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+}
+.logo-text{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.6);
+}
+/* Header */
+.header{margin-bottom:40px}
+.eyebrow{
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:14px;
+  opacity:.8;
+}
+.title{
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:-1.5px;
+  color:#fff;
+  line-height:1.1;
+  margin-bottom:8px;
+}
+.subtitle{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:300;
+  line-height:1.6;
+}
+/* Steps */
+.steps{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:32px;
+}
+.step{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:13px 16px;
+  border-radius:10px;
+  background:var(--faint);
+  border:1px solid var(--border);
+  transition:all .5s cubic-bezier(.4,0,.2,1);
+}
+.step.active{
+  background:rgba(197,126,51,.07);
+  border-color:rgba(197,126,51,.25);
+}
+.step.done{
+  background:rgba(16,185,129,.04);
+  border-color:rgba(16,185,129,.15);
+}
+.step-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:rgba(255,255,255,.15);
+  flex-shrink:0;
+  transition:all .4s;
+}
+.step.active .step-dot{
+  background:var(--gold);
+  box-shadow:0 0 8px rgba(197,126,51,.5);
+  animation:pulse-dot 1.4s infinite;
+}
+.step.done .step-dot{background:#10b981}
+@keyframes pulse-dot{
+  0%,100%{box-shadow:0 0 8px rgba(197,126,51,.5)}
+  50%{box-shadow:0 0 16px rgba(197,126,51,.8)}
+}
+.step-content{flex:1;min-width:0}
+.step-label{
+  font-size:13px;
+  color:rgba(255,255,255,.5);
+  font-weight:500;
+  transition:color .4s;
+}
+.step.active .step-label{color:#fff}
+.step.done .step-label{color:rgba(16,185,129,.8)}
+.step-value{
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  color:var(--gold);
+  margin-top:2px;
+  opacity:0;
+  transition:opacity .4s;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.step.done .step-value{opacity:.7}
+.step.active .step-value{opacity:.5}
+.step-check{
+  font-size:12px;
+  color:rgba(16,185,129,.6);
+  opacity:0;
+  transition:opacity .3s;
+}
+.step.done .step-check{opacity:1}
+/* Progress bar */
+.progress-wrap{
+  height:1px;
+  background:rgba(255,255,255,.06);
+  border-radius:1px;
+  overflow:hidden;
+  margin-bottom:24px;
+}
+.progress-bar{
+  height:100%;
+  background:linear-gradient(90deg,#C57E33,#d4984f);
+  width:0;
+  transition:width 1s cubic-bezier(.4,0,.2,1);
+  border-radius:1px;
+}
+/* Fingerprint card */
+.fp-reveal{
+  background:var(--faint);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 18px;
+  font-family:"DM Mono",monospace;
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.9;
+  display:none;
+  margin-bottom:16px;
+}
+.fp-reveal .highlight{color:var(--gold)}
+/* Bottom hint */
+.hint{
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  color:rgba(255,255,255,.12);
+  text-align:center;
+  letter-spacing:.08em;
+  min-height:14px;
+  transition:all .3s;
+}
+/* Error state */
+.error-box{
+  background:rgba(239,68,68,.05);
+  border:1px solid rgba(239,68,68,.2);
+  border-radius:10px;
+  padding:16px;
+  font-size:13px;
+  color:rgba(239,68,68,.8);
+  margin-top:16px;
+  display:none;
+  font-family:"DM Mono",monospace;
+  line-height:1.6;
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="icon">&#9749;</div>
-  <div class="title">Собираем ваш сайт</div>
-  <div class="sub">Каждый пользователь получает уникальную страницу</div>
-  <div class="steps">
-    <div class="step" id="s1"><div class="step-icon">&#128269;</div><div class="step-text">Считываем ваш цифровой след</div><div class="step-val" id="sv1">...</div></div>
-    <div class="step" id="s2"><div class="step-icon">&#129504;</div><div class="step-text">ИИ решает как выглядит ваш сайт</div><div class="step-val" id="sv2">ожидание</div></div>
-    <div class="step" id="s3"><div class="step-icon">&#127912;</div><div class="step-text">Рендерим уникальный HTML</div><div class="step-val" id="sv3">ожидание</div></div>
-    <div class="step" id="s4"><div class="step-icon">&#10024;</div><div class="step-text">Ваша персональная страница готова</div><div class="step-val" id="sv4">ожидание</div></div>
+<div class="container">
+  <!-- Extella logo -->
+  <div class="logo-bar">
+    <div class="logo-mark">⚡</div>
+    <div class="logo-text">Extella Intelligence</div>
   </div>
-  <div class="bar-wrap"><div class="bar" id="bar"></div></div>
-  <div class="hint" id="hint">анализируем...</div>
-  <div class="fp-card" id="fpcard"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">Персонализация в реальном времени</div>
+    <div class="title">Собираем ваш<br>уникальный сайт</div>
+    <div class="subtitle">Каждый пользователь получает свою версию.<br>Создаём прямо сейчас — специально для вас.</div>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step" id="s1">
+      <div class="step-dot"></div>
+      <div class="step-content">
+        <div class="step-label">Считываем цифровой профиль</div>
+        <div class="step-value" id="sv1"></div>
+      </div>
+      <div class="step-check">✓</div>
+    </div>
+    <div class="step" id="s2">
+      <div class="step-dot"></div>
+      <div class="step-content">
+        <div class="step-label">ИИ принимает дизайн-решения</div>
+        <div class="step-value" id="sv2"></div>
+      </div>
+      <div class="step-check">✓</div>
+    </div>
+    <div class="step" id="s3">
+      <div class="step-dot"></div>
+      <div class="step-content">
+        <div class="step-label">Загружаем компонент страницы</div>
+        <div class="step-value" id="sv3"></div>
+      </div>
+      <div class="step-check">✓</div>
+    </div>
+    <div class="step" id="s4">
+      <div class="step-dot"></div>
+      <div class="step-content">
+        <div class="step-label">Рендерим персональный HTML</div>
+        <div class="step-value" id="sv4"></div>
+      </div>
+      <div class="step-check">✓</div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+
+  <!-- Fingerprint reveal -->
+  <div class="fp-reveal" id="fpcard"></div>
+
+  <!-- Hint -->
+  <div class="hint" id="hint">инициализация...</div>
+
+  <!-- Error -->
+  <div class="error-box" id="errbox"></div>
 </div>
+
 <script>
-var SB="https://nsjwtywrnlvhnxuflbpg.supabase.co",SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0",ET="https://api.extella.ai",ETK="f105e093-effc-42d6-973c-39401ab77445";
+var SB="https://nsjwtywrnlvhnxuflbpg.supabase.co", SBK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0", ET="https://api.extella.ai", ETK="f105e093-effc-42d6-973c-39401ab77445";
 var SBH={"apikey":SBK,"Authorization":"Bearer "+SBK,"Content-Type":"application/json"};
 var OAK="";
 
 function g(id){return document.getElementById(id)}
-function step(n,state,val){
-  g("s"+n).className="step "+state;
-  if(val!==undefined)g("sv"+n).textContent=val;
+
+function setStep(n,state,val){
+  var el=g("s"+n);
+  el.className="step "+state;
+  if(val){g("sv"+n).textContent=val}
   g("bar").style.width=(n*25)+"%";
 }
+
 function hint(t){g("hint").textContent=t}
 
-function sf(url,opts,ms){return new Promise(function(res,rej){var ac=new AbortController();var t=setTimeout(function(){ac.abort()},ms||5000);fetch(url,Object.assign({},opts||{},{signal:ac.signal})).then(function(r){clearTimeout(t);res(r)}).catch(function(e){clearTimeout(t);rej(e)})})}
+function showError(msg){
+  var eb=g("errbox");
+  eb.style.display="block";
+  eb.textContent="ERROR: "+msg;
+  hint("что-то пошло не так");
+}
+
+function sf(url,opts,ms){
+  return new Promise(function(res,rej){
+    var ac=new AbortController();
+    var t=setTimeout(function(){ac.abort()},ms||5000);
+    fetch(url,Object.assign({},opts||{},{signal:ac.signal}))
+      .then(function(r){clearTimeout(t);res(r)})
+      .catch(function(e){clearTimeout(t);rej(e)})
+  })
+}
+
 function gc(n){var c=document.cookie.split(";").map(function(x){return x.trim()}).find(function(x){return x.startsWith(n+"=")});return c?c.split("=")[1]:null}
 function sc(n,v,d){var e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+"="+v+";expires="+e.toUTCString()+";path=/;SameSite=Lax"}
 function uid(){return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==="x"?r:(r&3|8)).toString(16)})}
@@ -66,48 +334,41 @@ function sbL(id){return sf(SB+"/rest/v1/visitors?id=eq."+id+"&limit=1",{headers:
 function sbI(d){sf(SB+"/rest/v1/visitors",{method:"POST",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
 function sbU(id,d){sf(SB+"/rest/v1/visitors?id=eq."+id,{method:"PATCH",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){})}
 
-// Full fingerprint — every signal
+// Full 12-signal fingerprint
 function getFingerprint(){
   var ua=navigator.userAgent;
   var h=new Date().getHours();
-  var day=new Date().getDay(); // 0=Sun, 6=Sat
+  var day=new Date().getDay();
   var os=/Mac/.test(ua)&&!/iPhone|iPad/.test(ua)?"mac":/Win/.test(ua)?"win":/Linux/.test(ua)?"linux":"other";
   var br=/Chrome/.test(ua)&&!/Edge/.test(ua)?"chrome":/Firefox/.test(ua)?"firefox":/Safari/.test(ua)&&!/Chrome/.test(ua)?"safari":/Edge/.test(ua)?"edge":"other";
   var mob=/Mobile|Android|iPhone|iPad/.test(ua);
-  return {
-    os:os, br:br, mob:mob,
-    sw:screen.width, sh:screen.height,
+  return{
+    os:os,br:br,mob:mob,
+    sw:screen.width,sh:screen.height,
     dpr:window.devicePixelRatio||1,
-    h:h, day:day,
+    h:h,day:day,
     tz:Intl.DateTimeFormat().resolvedOptions().timeZone||"unknown",
     lang:navigator.language||"ru",
     cores:navigator.hardwareConcurrency||2,
     mem:navigator.deviceMemory||4
-  };
+  }
 }
 
 function detectProfile(fp){
   var s={coffee_lover:0,office_worker:0,design_lover:0,beginner:0};
-  // OS signals
   if(fp.os==="mac")s.design_lover+=3;
   if(fp.os==="win")s.office_worker+=2;
   if(fp.os==="linux")s.coffee_lover+=2;
-  // Screen
   if(fp.sw>=2560)s.design_lover+=3;
   else if(fp.sw>=1920)s.design_lover+=2;
   else if(fp.sw>=1440)s.office_worker+=1;
-  // Mobile
   if(fp.mob)s.beginner+=4;
-  // Time
   if(fp.h>=7&&fp.h<=9)s.office_worker+=3;
   else if(fp.h>=21||fp.h<=4)s.coffee_lover+=3;
   else if(fp.h>=12&&fp.h<=14)s.office_worker+=1;
-  // Day
-  if(fp.day===0||fp.day===6)s.coffee_lover+=2; // weekend
-  // Browser
+  if(fp.day===0||fp.day===6)s.coffee_lover+=2;
   if(fp.br==="firefox")s.coffee_lover+=1;
   if(fp.br==="safari"&&fp.os==="mac")s.design_lover+=1;
-  // Hardware (proxy for sophistication)
   if(fp.cores>=8)s.design_lover+=1;
   if(fp.mem>=16)s.design_lover+=1;
   if(fp.dpr>=2)s.design_lover+=1;
@@ -115,123 +376,217 @@ function detectProfile(fp){
   return t[0][0];
 }
 
-var LABELS={
-  coffee_lover:"Кофеман &#9749;",
-  office_worker:"Офисный работник &#128188;",
-  design_lover:"Любитель дизайна &#127912;",
-  beginner:"Новичок &#128304;"
+var TEMPLATES={
+  coffee_lover:"coffee_template_coffee_lover",
+  office_worker:"coffee_template_office_worker",
+  design_lover:"coffee_template_design_lover",
+  beginner:"coffee_template_beginner"
 };
 
+var PROFILE_LABELS={
+  coffee_lover:"Кофеман",
+  office_worker:"Офисный работник",
+  design_lover:"Любитель дизайна",
+  beginner:"Новичок"
+};
+
+// Build profile-specific prompt for GPT
+function buildPrompt(ut,fp,vc,name,isBuyer){
+  var h=fp.h;
+  var timeCtx="";
+  if(h>=5&&h<=8)timeCtx="раннее утро ("+h+"ч), человек только просыпается";
+  else if(h>=9&&h<=11)timeCtx="утро ("+h+"ч), рабочий настрой";
+  else if(h>=12&&h<=13)timeCtx="обед ("+h+"ч), короткий перерыв";
+  else if(h>=14&&h<=17)timeCtx="день ("+h+"ч), рабочий режим";
+  else if(h>=18&&h<=21)timeCtx="вечер ("+h+"ч), расслаблен дома";
+  else timeCtx="ночь ("+h+"ч), скорее всего энтузиаст";
+
+  var screenCtx=fp.sw>=2560?"огромный 2560px+ Retina":fp.sw>=1920?"большой 1920px":fp.sw>=1440?"ноутбук 1440px":fp.mob?"телефон":"небольшой "+fp.sw+"px";
+  var visitCtx=isBuyer?"уже КУПИЛ — знает продукт":name&&vc>1?"возвращается в "+vc+"-й раз, зовут "+name:vc>1?"возвращается анонимно в "+vc+"-й раз":"первый визит";
+  var dayCtx=(fp.day===0||fp.day===6)?"выходной день":"рабочий день";
+
+  var SCHEMAS={
+    coffee_lover:'{"headline":"...","subheadline":"...","cta_label":"...","badge":"☕ ...","f1_value":"15","f1_unit":"BAR","f1_title":"...","f2_value":"40","f2_unit":"SEC","f2_title":"...","f3_value":"8","f3_unit":"LVL","f3_title":"...","care_tip":"...","interior":"...","acc1_name":"...","acc1_price":"... ₽","acc2_name":"...","acc2_price":"... ₽"}',
+    office_worker:'{"headline":"...","subheadline":"...","cta_label":"...","badge":"💼 ...","f1_icon":"⚡","f1_value":"...","f1_title":"...","f2_icon":"✅","f2_value":"...","f2_title":"...","f3_icon":"📦","f3_value":"...","f3_title":"...","c1_icon":"...","c1_title":"...","c1_desc":"...","c2_icon":"...","c2_title":"...","c2_desc":"...","c3_icon":"...","c3_title":"...","c3_desc":"...","care_tip":"...","acc1_name":"...","acc1_price":"... ₽","acc2_name":"...","acc2_price":"... ₽"}',
+    design_lover:'{"headline":"...","subheadline":"...","cta_label":"...","badge":"🎨 ...","f1_title":"...","f1_desc":"...","f2_title":"...","f2_desc":"...","f3_title":"...","f3_desc":"...","f4_title":"...","f4_desc":"...","interior":"...","care_tip":"...","acc1_name":"...","acc1_price":"... ₽","acc2_name":"...","acc2_price":"... ₽"}',
+    beginner:'{"headline":"...","subheadline":"...","cta_label":"...","badge":"🔰 ...","step1":"...","step2":"...","step3":"...","faq1_q":"...","faq1_a":"...","faq2_q":"...","faq2_a":"...","faq3_q":"...","faq3_a":"...","care_tip":"...","acc1_name":"...","acc1_price":"... ₽","acc2_name":"...","acc2_price":"... ₽"}'
+  };
+
+  return "Ты генерируешь УНИКАЛЬНЫЕ параметры для лендинга DeLonghi La Specialista Arte (89990₽).\n\n"+
+    "ПРОФИЛЬ ЭТОГО ЧЕЛОВЕКА:\n"+
+    "- Тип: "+ut+"\n"+
+    "- ОС: "+fp.os+" | Браузер: "+fp.br+"\n"+
+    "- Экран: "+screenCtx+"\n"+
+    "- Время: "+timeCtx+" | "+dayCtx+"\n"+
+    "- Визит: "+visitCtx+"\n\n"+
+    "ЗАДАЧА: Создай УНИКАЛЬНЫЙ контент именно для этого человека прямо сейчас.\n"+
+    "Не пиши шаблонные фразы. Думай: этот человек зашёл в "+h+":00, "+timeCtx+", "+visitCtx+".\n"+
+    "Тон, заголовок, детали — всё должно отражать именно этот момент.\n\n"+
+    "Верни ТОЛЬКО JSON по схеме:\n"+SCHEMAS[ut];
+}
+
+// Handlebars-like renderer
+function renderTemplate(tmpl,ctx){
+  // {{#each}} loops
+  tmpl=tmpl.replace(/\{\{#each\s+(\w[\w.]*)\s*\}\}([\s\S]*?)\{\{\/each\}\}/g,function(m,key,body){
+    var arr=ctx[key];
+    if(!Array.isArray(arr))return"";
+    return arr.map(function(item){
+      var ic=Object.assign({},ctx,item,{this:item});
+      return renderTemplate(body,ic);
+    }).join("");
+  });
+  // {{#if}} conditionals
+  tmpl=tmpl.replace(/\{\{#if\s+(\w[\w.]*)\s*\}\}([\s\S]*?)(?:\{\{else\}\}([\s\S]*?))?\{\{\/if\}\}/g,function(m,key,ifB,elseB){
+    var val=ctx[key];
+    var ok=val&&val!=="false"&&val!=="0";
+    return renderTemplate(ok?ifB:(elseB||""),ctx);
+  });
+  // {{#unless}} conditionals
+  tmpl=tmpl.replace(/\{\{#unless\s+(\w[\w.]*)\s*\}\}([\s\S]*?)\{\{\/unless\}\}/g,function(m,key,body){
+    var val=ctx[key];
+    var ok=val&&val!=="false"&&val!=="0";
+    return ok?"":renderTemplate(body,ctx);
+  });
+  // {{key}} variables
+  tmpl=tmpl.replace(/\{\{([\w][\w. ]*)\}\}/g,function(m,key){
+    var k=key.trim();
+    if(k.indexOf(".")>-1){
+      var parts=k.split(".");
+      var v=ctx;
+      parts.forEach(function(p){v=v&&typeof v==="object"?v[p]:"";});
+      return v!=null?String(v):"";
+    }
+    return ctx[k]!=null?String(ctx[k]):"";
+  });
+  return tmpl;
+}
+
 async function main(){
-  // STEP 1: fingerprint
-  step(1,"active","считываем...");
-  hint("определяем ваш профиль по 12 сигналам");
+  // ── STEP 1: Fingerprint ──────────────────────────────────────
+  setStep(1,"active","считываем...");
+  hint("12 сигналов: OS, браузер, экран, время, часовой пояс...");
+
   var fp=getFingerprint();
   var ut=detectProfile(fp);
 
-  await new Promise(function(r){setTimeout(r,700)});
+  // Load key & visitor in parallel
+  var keyPromise=sf(SB+"/rest/v1/config?key=eq.openai_api_key&select=value",{headers:SBH},5000)
+    .then(function(r){return r.json()})
+    .then(function(d){OAK=(Array.isArray(d)&&d.length)?d[0].value:"";return OAK})
+    .catch(function(){return""});
 
-  var fpStr=[
-    fp.os.toUpperCase(),
-    fp.sw+"x"+fp.sh,
-    (fp.h<10?"0":"")+fp.h+":xx",
-    fp.mob?"mobile":"desktop",
-    fp.br,
-    fp.tz.split("/")[1]||fp.tz
-  ].join(" · ");
-
-  step(1,"done",fpStr);
-  g("fpcard").style.display="block";
-  g("fpcard").innerHTML=
-    "&#128269; <span>"+LABELS[ut]+"</span><br>"+
-    "OS: <span>"+fp.os+"</span> &nbsp; Экран: <span>"+fp.sw+"px</span> &nbsp; Время: <span>"+fp.h+":00</span><br>"+
-    "Браузер: <span>"+fp.br+"</span> &nbsp; Ядер: <span>"+fp.cores+"</span> &nbsp; "+fp.tz;
-  hint("профиль определён: "+fpStr);
-
-  // Load OpenAI key
-  try{
-    var kr=await sf(SB+"/rest/v1/config?key=eq.openai_api_key&select=value",{headers:SBH},5000);
-    var kd=await kr.json();
-    OAK=(Array.isArray(kd)&&kd.length)?kd[0].value:"";
-  }catch(e){console.warn("key",e)}
-
-  // Visitor tracking
   var vid=gc("vid");
   if(!vid){vid=uid();sc("vid",vid,365)}
-  var vis=await sbL(vid);
-  var vc=1;
-  var visName="";
-  var hasBought=false;
+  var visPromise=sbL(vid);
+
+  await new Promise(function(r){setTimeout(r,500)});
+
+  var vis=await visPromise;
+  await keyPromise;
+
+  var vc=1,visName="",isBuyer=false;
   if(vis){
     vc=(vis.visit_count||1)+1;
     visName=(vis.name)||"";
-    hasBought=(vis.events||[]).some(function(e){return e.type==="purchase"});
-    sbU(vid,{visit_count:vc,last_seen:new Date().toISOString(),profile:{user_type:ut,tags:{},price_segment:"budget"}});
+    isBuyer=(vis.events||[]).some(function(e){return e.type==="purchase"});
+    sbU(vid,{visit_count:vc,last_seen:new Date().toISOString()});
   }else{
     sbI({id:vid,fingerprint:fp,profile:{user_type:ut,tags:{},price_segment:"budget"},events:[{type:"page_view",ts:new Date().toISOString()}],visit_count:1,created_at:new Date().toISOString(),last_seen:new Date().toISOString()});
   }
 
-  // STEP 2: GPT generates unique page
-  step(2,"active","GPT думает...");
-  hint("ИИ анализирует все 12 сигналов и решает как выглядит ваш сайт");
+  var fpSummary=fp.os.toUpperCase()+" · "+fp.sw+"px · "+fp.h+"ч · "+(fp.mob?"mobile":"desktop")+" · "+fp.br;
+  setStep(1,"done",fpSummary);
 
-  var params={
-    user_type:ut,
-    visit_count:String(vc),
-    visitor_name:visName,
-    has_purchased:hasBought?"true":"false",
-    openai_key:OAK,
-    api_token:ETK,
-    fingerprint_json:JSON.stringify(fp)
-  };
+  var fpc=g("fpcard");
+  fpc.style.display="block";
+  fpc.innerHTML=
+    "<span class='highlight'>"+PROFILE_LABELS[ut]+"</span><br>"+
+    "OS: <span class='highlight'>"+fp.os+"</span>  "+
+    "Экран: <span class='highlight'>"+fp.sw+"px</span>  "+
+    "Время: <span class='highlight'>"+fp.h+":00</span><br>"+
+    "Браузер: <span class='highlight'>"+fp.br+"</span>  "+
+    "Ядра: <span class='highlight'>"+fp.cores+"</span>  "+
+    "Визит: <span class='highlight'>#"+vc+"</span>  "+
+    "ТЗ: <span class='highlight'>"+(fp.tz.split("/")[1]||fp.tz)+"</span>";
 
-  var pageHTML=null;
-  var templateUsed="";
-  try{
-    var r=await sf(ET+"/api/expert/run",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","X-Auth-Token":ETK},
-      body:JSON.stringify({expert_name:"coffee_build_page",params:params})
-    },90000);
-    var d=await r.json();
-    var result=(d.result&&d.result.result)||d.result||d;
-    if(result&&result.html){
-      pageHTML=result.html;
-      templateUsed=result.template||"";
-      step(2,"done",result.headline?result.headline.substring(0,30)+"...":"готово");
-    }else{
-      step(2,"done","error");
-      hint("Ошибка: "+JSON.stringify(result).substring(0,100));
-      return;
-    }
-  }catch(e){
-    step(2,"done","error: "+e.message.substring(0,30));
-    hint("Ошибка: "+e.message);
+  // ── STEP 2: GPT generates unique kwargs ─────────────────────
+  setStep(2,"active","GPT анализирует...");
+  hint("ИИ читает все 12 сигналов и решает как должен выглядеть ваш сайт");
+
+  if(!OAK){
+    showError("OpenAI key not found in Supabase config");
     return;
   }
 
-  // STEP 3: render
-  step(3,"active","рендерим...");
-  hint("собираем HTML из компонентов-экспертов");
-  await new Promise(function(r){setTimeout(r,400)});
-  step(3,"done",templateUsed);
+  var kwargs=null;
+  try{
+    var aiResp=await sf("https://api.openai.com/v1/chat/completions",{
+      method:"POST",
+      headers:{"Authorization":"Bearer "+OAK,"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"gpt-4o-mini",
+        messages:[{role:"user",content:buildPrompt(ut,fp,vc,visName,isBuyer)}],
+        temperature:0.95,
+        response_format:{type:"json_object"}
+      })
+    },30000);
+    var aiData=await aiResp.json();
+    var content=aiData.choices&&aiData.choices[0]&&aiData.choices[0].message&&aiData.choices[0].message.content;
+    if(!content)throw new Error("No content from GPT");
+    kwargs=JSON.parse(content);
+    var headline=(kwargs.headline||"").replace(/<[^>]+>/g,"").substring(0,35);
+    setStep(2,"done",headline+"...");
+    hint("контент создан: "+Object.keys(kwargs).length+" параметров");
+  }catch(e){
+    showError("GPT error: "+e.message);
+    setStep(2,"done","error");
+    return;
+  }
 
-  // STEP 4: inject
-  step(4,"active","готово!");
+  // ── STEP 3: Fetch HTML template from Extella ─────────────────
+  var templateName=TEMPLATES[ut]||"coffee_template_beginner";
+  setStep(3,"active","загружаем шаблон...");
+  hint("получаем компонент: "+templateName);
+
+  var template="";
+  try{
+    var tResp=await sf(ET+"/api/expert/get/"+templateName,{
+      headers:{"Content-Type":"application/json","X-Auth-Token":ETK}
+    },10000);
+    var tData=await tResp.json();
+    template=tData.expert_code||tData.code||"";
+    if(!template)throw new Error("Empty template from API. Keys: "+Object.keys(tData).join(","));
+    setStep(3,"done",templateName+" ("+Math.round(template.length/1024)+"KB)");
+    hint("шаблон загружен — рендерим...");
+  }catch(e){
+    showError("Template error: "+e.message);
+    setStep(3,"done","error");
+    return;
+  }
+
+  // ── STEP 4: Render locally ────────────────────────────────────
+  setStep(4,"active","рендерим...");
+  hint("собираем HTML из компонента и параметров GPT");
+
+  await new Promise(function(r){setTimeout(r,300)});
+
+  var rendered=renderTemplate(template,kwargs);
+  setStep(4,"done",rendered.length+"B уникального HTML");
   g("bar").style.width="100%";
-  hint("ваша уникальная страница создана");
-  await new Promise(function(r){setTimeout(r,500)});
+  hint("готово — ваш уникальный сайт создан");
 
-  // Replace page
+  await new Promise(function(r){setTimeout(r,600)});
+
+  // ── Inject the unique page ─────────────────────────────────────
   document.open();
-  document.write(pageHTML);
+  document.write(rendered);
   document.close();
 }
 
 main().catch(function(e){
+  showError(e.message);
   console.error(e);
-  g("hint").textContent="Ошибка: "+e.message;
-  step(1,"done","error");
 });
 </script>
 </body>
