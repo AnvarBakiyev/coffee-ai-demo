@@ -4,14 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>DeLonghi Arte</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"DM Sans",sans-serif;background:#0A0A0A;color:rgba(255,255,255,.88);min-height:100vh}
-body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
-/* LOADER */
 #loader{position:fixed;inset:0;background:#0A0A0A;z-index:999;display:flex;align-items:center;justify-content:center;transition:opacity .7s}
-.lw{width:100%;max-width:500px;padding:0 32px;position:relative;z-index:1}
+.lw{width:100%;max-width:500px;padding:0 32px}
 .ll{display:flex;align-items:center;gap:10px;margin-bottom:48px;opacity:.45}
 .lm{width:26px;height:26px;background:#C57E33;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px}
 .ln{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
@@ -28,244 +26,246 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .llab{font-size:13px;color:rgba(255,255,255,.4);flex:1;transition:color .4s}
 .li.ac .llab{color:#fff;font-weight:500}
 .li.dn .llab{color:rgba(16,185,129,.7)}
-.lv{font-family:"DM Mono",monospace;font-size:10px;color:#C57E33;opacity:0;transition:opacity .4s;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lv{font-family:monospace;font-size:10px;color:#C57E33;opacity:0;transition:opacity .4s}
 .li.dn .lv,.li.ac .lv{opacity:.6}
 .lck{font-size:11px;color:rgba(16,185,129,.6);opacity:0;transition:.3s}
 .li.dn .lck{opacity:1}
 .lbar{height:1px;background:rgba(255,255,255,.06);border-radius:1px;overflow:hidden;margin-bottom:20px}
-.lfill{height:100%;background:linear-gradient(90deg,#C57E33,#d4984f);width:0;transition:width .9s cubic-bezier(.4,0,.2,1)}
-.lfp{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:13px 16px;font-family:"DM Mono",monospace;font-size:10px;color:rgba(255,255,255,.4);line-height:1.9;display:none;margin-bottom:12px}
-.lfp .h{color:#C57E33}
-.dsp{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px 14px;font-family:"DM Mono",monospace;font-size:10px;color:rgba(255,255,255,.3);line-height:1.8;display:none;margin-bottom:12px}
-.dsp .h{color:#C57E33}
-.lhint{font-family:"DM Mono",monospace;font-size:10px;color:rgba(255,255,255,.1);text-align:center;min-height:14px}
-/* APP wrapper */
-#app{display:none;position:relative;z-index:1}
+.lfill{height:100%;background:linear-gradient(90deg,#C57E33,#d4984f);width:0;transition:width .9s ease}
+.lhint{font-family:monospace;font-size:10px;color:rgba(255,255,255,.2);text-align:center;min-height:14px}
+#app{display:none;min-height:100vh;background:#0A0A0A}
+.hero{padding:80px 40px 60px;max-width:900px;margin:0 auto}
+.htag{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:24px}
+h1{font-size:64px;font-weight:900;letter-spacing:-3px;line-height:1.05;margin-bottom:20px;color:#fff}
+h1 .ac{color:#C57E33}
+.hsub{font-size:18px;color:rgba(255,255,255,.5);font-weight:300;margin-bottom:12px}
+.hang{font-size:13px;color:rgba(197,126,51,.7);margin-bottom:40px;font-style:italic}
+.hbtn{display:inline-block;padding:16px 36px;background:#C57E33;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif}
+.features{padding:40px;max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.fc{padding:24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px}
+.fe{font-size:28px;margin-bottom:10px}
+.fn{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.fd{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5}
+.chat-wrap{position:fixed;bottom:24px;right:24px;z-index:100;width:360px}
+.chat-box{background:#111;border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden}
+.chat-hdr{padding:14px 18px;background:rgba(197,126,51,.1);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.chat-ht{font-size:13px;font-weight:700;color:#fff}
+.chat-msgs{height:200px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.mu{align-self:flex-end;background:rgba(197,126,51,.15);border:1px solid rgba(197,126,51,.2);padding:8px 12px;border-radius:10px;font-size:12px;color:#fff;max-width:80%}
+.ma{align-self:flex-start;background:rgba(255,255,255,.05);padding:8px 12px;border-radius:10px;font-size:12px;color:rgba(255,255,255,.8);max-width:80%}
+.chat-inp{display:flex;gap:8px;padding:12px}
+.chat-inp input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;font-family:"DM Sans",sans-serif;outline:none}
+.chat-inp button{background:#C57E33;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif}
 </style>
 </head>
 <body>
-
 <div id="loader">
   <div class="lw">
     <div class="ll"><div class="lm">&#9889;</div><div class="ln">Extella Intelligence</div></div>
-    <div class="lt1">Ваш уникальный сайт</div>
-    <div class="lt2">Fingerprint → ИИ → дизайн-система → шаблон из библиотеки</div>
+    <div class="lt1">&#1042;&#1072;&#1096; &#1091;&#1085;&#1080;&#1082;&#1072;&#1083;&#1100;&#1085;&#1099;&#1081; &#1089;&#1072;&#1081;&#1090;</div>
+    <div class="lt2">Fingerprint &#8594; &#1048;&#1048; &#8594; &#1076;&#1080;&#1079;&#1072;&#1081;&#1085;-&#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072; &#8594; &#1096;&#1072;&#1073;&#1083;&#1086;&#1085;</div>
     <div class="ls">
-      <div class="li" id="l1"><div class="ld2"></div><div class="llab">Считываем цифровой след</div><div class="lv" id="lv1"></div><div class="lck">✓</div></div>
-      <div class="li" id="l2"><div class="ld2"></div><div class="llab">ИИ создаёт дизайн-систему</div><div class="lv" id="lv2"></div><div class="lck">✓</div></div>
-      <div class="li" id="l3"><div class="ld2"></div><div class="llab">Загружаем шаблон из библиотеки Extella</div><div class="lv" id="lv3"></div><div class="lck">✓</div></div>
-      <div class="li" id="l4"><div class="ld2"></div><div class="llab">Рендерим и применяем дизайн-систему</div><div class="lv" id="lv4"></div><div class="lck">✓</div></div>
+      <div class="li" id="l1"><div class="ld2"></div><div class="llab">&#1057;&#1095;&#1080;&#1090;&#1099;&#1074;&#1072;&#1077;&#1084; &#1094;&#1080;&#1092;&#1088;&#1086;&#1074;&#1086;&#1081; &#1089;&#1083;&#1077;&#1076;</div><div class="lv" id="lv1"></div><div class="lck">&#10003;</div></div>
+      <div class="li" id="l2"><div class="ld2"></div><div class="llab">&#1048;&#1048; &#1089;&#1086;&#1079;&#1076;&#1072;&#1105;&#1090; &#1076;&#1080;&#1079;&#1072;&#1081;&#1085;-&#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1091;</div><div class="lv" id="lv2"></div><div class="lck">&#10003;</div></div>
+      <div class="li" id="l3"><div class="ld2"></div><div class="llab">&#1047;&#1072;&#1075;&#1088;&#1091;&#1078;&#1072;&#1077;&#1084; &#1096;&#1072;&#1073;&#1083;&#1086;&#1085; &#1080;&#1079; Extella</div><div class="lv" id="lv3"></div><div class="lck">&#10003;</div></div>
+      <div class="li" id="l4"><div class="ld2"></div><div class="llab">&#1056;&#1077;&#1085;&#1076;&#1077;&#1088;&#1080;&#1084; &#1080; &#1087;&#1088;&#1080;&#1084;&#1077;&#1085;&#1103;&#1077;&#1084; &#1076;&#1080;&#1079;&#1072;&#1081;&#1085;</div><div class="lv" id="lv4"></div><div class="lck">&#10003;</div></div>
     </div>
     <div class="lbar"><div class="lfill" id="lf"></div></div>
-    <div class="lfp" id="lfp"></div>
-    <div class="dsp" id="dsp"></div>
-    <div class="lhint" id="lh">инициализация...</div>
+    <div class="lhint" id="lh">&#1080;&#1085;&#1080;&#1094;&#1080;&#1072;&#1083;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;...</div>
   </div>
 </div>
-
 <div id="app"></div>
-
 <script>
-var SB = "https://nsjwtywrnlvhnxuflbpg.supabase.co", SBK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0", ET = "https://api.extella.ai", ETK = "05c2bd60-1520-415e-becb-4e036acbbc1c";
-var SBH = {"apikey": SBK, "Authorization": "Bearer " + SBK, "Content-Type": "application/json"};
-var OAK = atob("c2stcHJvai1UWEVYS0x3bjcyMHhKaFdYYWFaYjZfTGZOZmItT3o5YTRWU3lrWHlsb05EYkp2a1I2Vjl6ckJxSGZTZzJvV3FiM1pTVjI5WGduT1QzQmxia0ZKLU10N2JfZ0RPeHNvMmlRWEhFQW1uNGpaNXhjck5SRXc5aHNKODdZX3FzdHpycmtrS3BOVlNIdmdtakxRTVBHd1NhbkpvRHJhY0E="), vis = null, chH = [], chL = false, profileType = "beginner", chatOpen = true;
+var OAK = atob("c2stcHJvai1UWEVYS0x3bjcyMHhKaFdYYWFaYjZfTGZOZmItT3o5YTRWU3lrWHlsb05EYkp2a1I2Vjl6ckJxSGZTZzJvV3FiM1pTVjI5WGduT1QzQmxia0ZKLU10N2JfZ0RPeHNvMmlRWEhFQW1uNGpaNXhjck5SRXc5aHNKODdZX3FzdHpycmtrS3BOVlNIdmdtakxRTVBHd1NhbkpvRHJhY0E=");
+var SB  = "https://nsjwtywrnlvhnxuflbpg.supabase.co";
+var SBK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0";
+var ET  = "https://api.extella.ai";
+var ETK = "05c2bd60-1520-415e-becb-4e036acbbc1c";
+var SBH = {apikey:SBK,"Authorization":"Bearer "+SBK,"Content-Type":"application/json"};
 
-function g(id) { return document.getElementById(id) }
-function sf(url, opts, ms) {
-  return new Promise(function(res, rej) {
-    var ac = new AbortController();
-    var t = setTimeout(function() { ac.abort() }, ms || 5000);
-    fetch(url, Object.assign({}, opts || {}, {signal: ac.signal}))
-      .then(function(r) { clearTimeout(t); res(r) })
-      .catch(function(e) { clearTimeout(t); rej(e) });
+function g(id){return document.getElementById(id)}
+function ldSt(n,s,v){var el=g("l"+n);if(el)el.className="li "+s;var lv=g("lv"+n);if(lv&&v)lv.textContent=v;var lf=g("lf");if(lf)lf.style.width=(n*25)+"%"}
+function ldH(t){var el=g("lh");if(el)el.textContent=t}
+function uid(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c=="x"?r:(r&3|8)).toString(16)})}
+function gc(n){var c=document.cookie.split(";").map(function(x){return x.trim()}).find(function(x){return x.startsWith(n+"=")});return c?c.split("=")[1]:null}
+function sc(n,v,d){var e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+"="+v+";expires="+e.toUTCString()+";path=/"}
+
+function sfetch(url,opts,ms){
+  return new Promise(function(res,rej){
+    var ac=new AbortController();
+    var t=setTimeout(function(){ac.abort()},ms||8000);
+    fetch(url,Object.assign({},opts||{},{signal:ac.signal}))
+      .then(function(r){clearTimeout(t);res(r)})
+      .catch(function(e){clearTimeout(t);rej(e)});
   });
 }
-function gc(n) { var c = document.cookie.split(";").map(function(x){return x.trim()}).find(function(x){return x.startsWith(n+"=")}); return c ? c.split("=")[1] : null }
-function sc(n,v,d) { var e = new Date(); e.setTime(e.getTime()+d*864e5); document.cookie = n+"="+v+";expires="+e.toUTCString()+";path=/;SameSite=Lax" }
-function uid() { return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c){var r=Math.random()*16|0; return(c==="x"?r:(r&3|8)).toString(16)}) }
-function sbL(id) { return sf(SB+"/rest/v1/visitors?id=eq."+id+"&limit=1",{headers:SBH},5000).then(function(r){return r.json()}).then(function(d){return Array.isArray(d)&&d.length?d[0]:null}).catch(function(){return null}) }
-function sbI(d) { sf(SB+"/rest/v1/visitors",{method:"POST",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){}) }
-function sbU(id,d) { sf(SB+"/rest/v1/visitors?id=eq."+id,{method:"PATCH",headers:Object.assign({},SBH,{"Prefer":"return=minimal"}),body:JSON.stringify(d)},5000).catch(function(){}) }
 
-function getFP() {
-  var ua = navigator.userAgent, h = new Date().getHours(), day = new Date().getDay();
-  var os = /Mac/.test(ua)&&!/iPhone|iPad/.test(ua)?"mac":/Win/.test(ua)?"win":/Linux/.test(ua)?"linux":"other";
-  var br = /Chrome/.test(ua)&&!/Edge/.test(ua)?"chrome":/Firefox/.test(ua)?"firefox":/Safari/.test(ua)&&!/Chrome/.test(ua)?"safari":/Edge/.test(ua)?"edge":"other";
-  return {os:os,br:br,mob:/Mobile|Android|iPhone|iPad/.test(ua),sw:screen.width,sh:screen.height,dpr:window.devicePixelRatio||1,h:h,day:day,tz:Intl.DateTimeFormat().resolvedOptions().timeZone||"unknown",lang:navigator.language||"ru",cores:navigator.hardwareConcurrency||2,mem:navigator.deviceMemory||4};
+function getFP(){
+  var ua=navigator.userAgent,h=new Date().getHours(),day=new Date().getDay();
+  var os=/Mac/.test(ua)&&!/iPhone|iPad/.test(ua)?"mac":/Win/.test(ua)?"win":/Linux/.test(ua)?"linux":"other";
+  var br=/Chrome/.test(ua)&&!/Edge/.test(ua)?"chrome":/Firefox/.test(ua)?"firefox":/Safari/.test(ua)&&!/Chrome/.test(ua)?"safari":"other";
+  return{os:os,br:br,mob:/Mobile|Android|iPhone|iPad/.test(ua),sw:screen.width,h:h,day:day,tz:Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC",cores:navigator.hardwareConcurrency||2,dpr:window.devicePixelRatio||1};
 }
-function detectProfile(fp) {
-  var s = {coffee_lover:0,office_worker:0,design_lover:0,beginner:0};
-  if(fp.os==="mac") s.design_lover+=3; if(fp.os==="win") s.office_worker+=2; if(fp.os==="linux") s.coffee_lover+=2;
-  if(fp.sw>=2560) s.design_lover+=3; else if(fp.sw>=1920) s.design_lover+=2; else if(fp.sw>=1440) s.office_worker+=1;
-  if(fp.mob) s.beginner+=4;
-  if(fp.h>=7&&fp.h<=9) s.office_worker+=3; else if(fp.h>=21||fp.h<=4) s.coffee_lover+=3;
-  if(fp.day===0||fp.day===6) s.coffee_lover+=2;
-  if(fp.br==="firefox") s.coffee_lover+=1; if(fp.br==="safari"&&fp.os==="mac") s.design_lover+=1;
-  if(fp.cores>=8) s.design_lover+=1; if(fp.mem>=16) s.design_lover+=1; if(fp.dpr>=2) s.design_lover+=1;
+function detectProfile(fp){
+  var s={coffee_lover:0,office_worker:0,design_lover:0,beginner:0};
+  if(fp.os==="mac")s.design_lover+=3;
+  if(fp.os==="win")s.office_worker+=2;
+  if(fp.mob)s.beginner+=4;
+  if(fp.sw>=2560)s.design_lover+=3;
+  if(fp.h>=7&&fp.h<=9)s.office_worker+=3;
+  else if(fp.h>=21||fp.h<=4)s.coffee_lover+=3;
+  if(fp.day===0||fp.day===6)s.coffee_lover+=2;
+  if(fp.dpr>=2)s.design_lover+=1;
   return Object.entries(s).sort(function(a,b){return b[1]-a[1]})[0][0];
 }
-var LABELS = {coffee_lover:"Кофеман ☕",office_worker:"Офисный работник 💼",design_lover:"Любитель дизайна 🎨",beginner:"Новичок 🔰"};
+var LABELS={coffee_lover:"Кофеман",office_worker:"Офисный работник",design_lover:"Ценитель дизайна",beginner:"Новичок"};
 
-function ldSt(n,s,v) { g("l"+n).className="li "+s; if(v) g("lv"+n).textContent=v; g("lf").style.width=(n*25)+"%" }
-function ldH(t) { g("lh").textContent=t }
+var FALLBACK = "<div style='padding:60px 40px'><div style='font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:24px'>DeLonghi Arte</div><h1 style='font-size:56px;font-weight:900;letter-spacing:-2px;color:#fff;margin-bottom:16px'>La Specialista <span style=color:#C57E33>Arte</span></h1><p style='font-size:18px;color:rgba(255,255,255,.5);margin-bottom:8px'>Профессиональный эспрессо у вас дома</p><p style='font-size:13px;color:rgba(197,126,51,.7);margin-bottom:40px'>15 бар · 1450 Вт · 40 секунд готовности</p><button onclick=this.textContent=`89 990 ₽ — в корзину` style='padding:16px 36px;background:#C57E33;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif'>Купить за 89 990 ₽</button><div style='display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:600px;margin-top:40px'><div style='padding:20px;background:rgba(255,255,255,.05);border-radius:12px'>☕ <b>15 бар</b><br><small style=color:rgba(255,255,255,.4)>Профессиональная экстракция</small></div><div style='padding:20px;background:rgba(255,255,255,.05);border-radius:12px'>⚡ <b>40 секунд</b><br><small style=color:rgba(255,255,255,.4)>До первой чашки</small></div><div style='padding:20px;background:rgba(255,255,255,.05);border-radius:12px'>🌡 <b>Кофемолка</b><br><small style=color:rgba(255,255,255,.4)>8 уровней помола</small></div><div style='padding:20px;background:rgba(255,255,255,.05);border-radius:12px'>🛡 <b>2 года</b><br><small style=color:rgba(255,255,255,.4)>Официальная гарантия</small></div></div></div>";
 
-// Apply design system — pure CSS variables, no DOM changes
-function applyDesign(ds) {
-  if(!ds) return;
-  var r = document.documentElement.style;
-  if(ds.bg) { r.setProperty("--bg",ds.bg); document.body.style.background=ds.bg }
-  if(ds.bg2) r.setProperty("--bg2",ds.bg2);
-  if(ds.accent) {
-    r.setProperty("--ac",ds.accent);
-    var hex=ds.accent.replace("#","");
-    if(hex.length===6) r.setProperty("--ar",parseInt(hex.slice(0,2),16)+","+parseInt(hex.slice(2,4),16)+","+parseInt(hex.slice(4,6),16));
-  }
-  if(ds.accentl) r.setProperty("--acl",ds.accentl);
-  if(ds.text) r.setProperty("--txt",ds.text);
-  if(ds.muted) r.setProperty("--mt",ds.muted);
-  if(ds.border) r.setProperty("--bd",ds.border);
-  if(ds.faint) r.setProperty("--ft",ds.faint);
-  if(ds.radius) { r.setProperty("--r",ds.radius); r.setProperty("--r2",ds.radius) }
-  if(ds.font_hero) r.setProperty("--fh",ds.font_hero);
-  if(ds.font_weight) r.setProperty("--fw",ds.font_weight);
-  if(ds.letter_spacing) r.setProperty("--ls",ds.letter_spacing);
-
-  // Apply font to hero title if it exists
-  var ht = g("ht");
-  if(ht) {
-    if(ds.font_hero) ht.style.fontSize=ds.font_hero;
-    if(ds.font_weight) ht.style.fontWeight=ds.font_weight;
-    if(ds.letter_spacing) ht.style.letterSpacing=ds.letter_spacing;
-  }
+function showApp(html){
+  var lo=g("loader"),ap=g("app");
+  if(html)ap.innerHTML=html;
+  lo.style.opacity="0";
+  setTimeout(function(){lo.style.display="none";ap.style.display="block"},600);
 }
 
-// Render {{placeholders}} in template
-function renderTpl(html, ctx) {
-  return html.replace(/\{\{(\w[\w]*)\}\}/g, function(m, key) {
-    return ctx[key] !== undefined ? String(ctx[key]) : m;
-  });
+function applyDesign(ds){
+  if(!ds)return;
+  var r=document.documentElement.style;
+  if(ds.bg){document.body.style.background=ds.bg;ap2=g("app");if(ap2)ap2.style.background=ds.bg}
+  if(ds.accent)r.setProperty("--ac",ds.accent);
+  if(ds.radius)r.setProperty("--r",ds.radius);
 }
 
-// Fill DOM with content after template is injected
-function fillContent(d) {
-  if(!d) return;
-  // Hero
-  if(d.hero_title) { var ht=g("ht"); if(ht){var w=d.hero_title.split(" ");if(w.length>1){w[w.length-1]="<span class='a'>"+w[w.length-1]+"</span>"}ht.innerHTML=w.join(" ")} }
-  if(d.hero_sub) { var hs=g("hs"); if(hs) hs.textContent=d.hero_sub }
-  if(d.hero_angle) { var ha=g("hang"); if(ha) ha.textContent=d.hero_angle }
-  if(d.cta_text) { var hb=g("hbtn"); if(hb) hb.textContent=d.cta_text }
-  // Features
-  if(d.features && d.features.length) updateFeatures(d.features);
-  // Reviews
-  if(d.reviews) {
-    var rs=g("rsumm"); if(rs&&d.reviews.summary) rs.textContent=d.reviews.summary;
-    var rc=g("rcards");
-    if(rc && d.reviews.cards && d.reviews.cards.length) {
-      rc.innerHTML=d.reviews.cards.map(function(r){
-        return "<div class='rcard'><div class='rtop'><div><div class='ra'>"+r.author+"</div><div class='rsrc'>"+r.source+"</div></div><div class='rss'>"+"★".repeat(r.rating||5)+"</div></div><div class='rtxt'>"+r.text+"</div>"+(r.quote?"<div class='rq'>"+r.quote+"</div>":"")+"</div>";
-      }).join("");
+async function callAI(prompt){
+  try{
+    var r=await sfetch("https://api.openai.com/v1/chat/completions",{
+      method:"POST",
+      headers:{"Authorization":"Bearer "+OAK,"Content-Type":"application/json"},
+      body:JSON.stringify({model:"gpt-4o-mini",messages:[{role:"user",content:prompt}],temperature:0.9,response_format:{type:"json_object"}})
+    },22000);
+    var d=await r.json();
+    var c=d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content;
+    return c?JSON.parse(c):null;
+  }catch(e){console.warn("AI error:",e.message);return null}
+}
+
+async function fetchTemplate(){
+  try{
+    var r=await sfetch(ET+"/api/expert/get/coffee_tpl_dark",{headers:{"Content-Type":"application/json","X-Auth-Token":ETK}},8000);
+    var d=await r.json();
+    return d.expert_code||d.code||"";
+  }catch(e){console.warn("Template error:",e.message);return""}
+}
+
+async function main(){
+  var safetyTimer=setTimeout(function(){
+    console.warn("Safety timeout — showing fallback");
+    showApp(FALLBACK);
+  },20000);
+
+  try{
+    // STEP 1: Fingerprint
+    ldSt(1,"ac","считываем...");
+    ldH("12 сигналов: OS, браузер, экран, время...");
+    var fp=getFP();
+    var profile=detectProfile(fp);
+    await new Promise(function(r){setTimeout(r,400)});
+    ldSt(1,"dn",fp.os.toUpperCase()+" "+fp.sw+"px "+fp.h+"h");
+
+    // Supabase visitor (fire and forget)
+    var vid=gc("vid");if(!vid){vid=uid();sc("vid",vid,365)}
+    var vc=1;
+    try{
+      var vr=await sfetch(SB+"/rest/v1/visitors?id=eq."+vid+"&limit=1",{headers:SBH},5000);
+      var vd=await vr.json();
+      if(Array.isArray(vd)&&vd.length){
+        vc=(vd[0].visit_count||1)+1;
+        sfetch(SB+"/rest/v1/visitors?id=eq."+vid,{method:"PATCH",headers:Object.assign({},SBH,{Prefer:"return=minimal"}),body:JSON.stringify({visit_count:vc,last_seen:new Date().toISOString()})},3000).catch(function(){});
+      }else{
+        sfetch(SB+"/rest/v1/visitors",{method:"POST",headers:Object.assign({},SBH,{Prefer:"return=minimal"}),body:JSON.stringify({id:vid,fingerprint:fp,profile:{user_type:profile},visit_count:1,created_at:new Date().toISOString(),last_seen:new Date().toISOString()})},3000).catch(function(){});
+      }
+    }catch(e){console.warn("Supabase:",e.message)}
+
+    // STEP 2: AI calls in parallel
+    ldSt(2,"ac","GPT...");
+    ldH("Дизайн-система + контент параллельно");
+    var ctx="Профиль: "+profile+" ("+LABELS[profile]+"), OS: "+fp.os+", экран: "+fp.sw+"px, время: "+fp.h+":00, визит #"+vc;
+
+    var designP=callAI("Создай дизайн-систему для лендинга DeLonghi. "+ctx+". bg тёмный (чёрный/синий/зелёный/фиолетовый), accent НЕ золотой. Верни JSON: {bg,accent,radius,font_weight}");
+    var contentP=callAI("Создай контент лендинга DeLonghi La Specialista Arte 89990руб. "+ctx+". Верни JSON: {hero_title,hero_sub,cta_text,features:[{emoji,title,desc}x4]}");
+    var tplP=fetchTemplate();
+
+    var settled=await Promise.allSettled([designP,contentP,tplP]);
+    var ds=settled[0].status==="fulfilled"?settled[0].value:null;
+    var ct=settled[1].status==="fulfilled"?settled[1].value:null;
+    var tpl=settled[2].status==="fulfilled"?settled[2].value:"";
+    ldSt(2,"dn",(ds&&ds.accent)||"done");
+
+    // STEP 3: Render
+    ldSt(3,"ac","рендерим...");
+    ldH("Шаблон из библиотеки Extella");
+    await new Promise(function(r){setTimeout(r,150)});
+
+    var appHTML=tpl||"";
+    if(!appHTML){
+      // Build from content
+      var feats="";
+      if(ct&&ct.features){ct.features.forEach(function(f){feats+="<div class='fc'><div class='fe'>"+f.emoji+"</div><div class='fn'>"+f.title+"</div><div class='fd'>"+f.desc+"</div></div>"});}
+      appHTML="<div class='hero'>"
+        +"<div class='htag'>Extella Intelligence · "+LABELS[profile]+"</div>"
+        +"<h1>"+(ct&&ct.hero_title?"DeLonghi La <span class='ac'>Specialista</span> Arte":"DeLonghi La <span class='ac'>Specialista</span> Arte")+"</h1>"
+        +"<p class='hsub'>"+(ct&&ct.hero_sub||"Профессиональный эспрессо у вас дома")+"</p>"
+        +"<button class='hbtn'>"+(ct&&ct.cta_text||"Купить за 89 990 ₽")+"</button>"
+        +"</div>"
+        +(feats?"<div class='features'>"+feats+"</div>":"")
+        +"<div class='chat-wrap'><div class='chat-box'>"
+        +"<div class='chat-hdr' id='chdr'><span class='chat-ht'>Спросить консультанта</span><span>&#9660;</span></div>"
+        +"<div class='chat-msgs' id='cm'><div class='ma'>Привет! Я помогу выбрать кофемашину. Что вас интересует?</div></div>"
+        +"<div class='chat-inp'><input id='cin' placeholder='Ваш вопрос...' /><button id='csnd'>&#8594;</button></div>"
+        +"</div></div>";
     }
+    g("app").innerHTML=appHTML;
+    ldSt(3,"dn",tpl?"coffee_tpl_dark "+(tpl.length/1024).toFixed(1)+"KB":"built");
+
+    // STEP 4: Apply design
+    ldSt(4,"ac","применяем дизайн...");
+    await new Promise(function(r){setTimeout(r,150)});
+    if(ds)applyDesign(ds);
+    ldSt(4,"dn","готово");
+    ldH("страница живая — чат меняет её в реальном времени");
+
+    // Setup chat
+    var cin=g("cin"),csnd=g("csnd"),cm=g("cm");
+    var chH=[],chL=false;
+    function addMsg(side,text){var d=document.createElement("div");d.className=side==="u"?"mu":"ma";d.textContent=text;cm.appendChild(d);cm.scrollTop=cm.scrollHeight}
+    async function sendChat(){
+      if(chL)return;var q=cin.value.trim();if(!q)return;
+      cin.value="";chL=true;if(csnd)csnd.disabled=true;addMsg("u",q);
+      try{
+        var r=await callAI("Консультант DeLonghi La Specialista Arte 89990руб. История: "+chH.slice(-4).map(function(m){return m.r+": "+m.c}).join("; ")+". Вопрос: "+q+". Ответь 2-3 предложения на русском.");
+        var ans=r&&r.answer||r&&r.response||"Хороший вопрос! Эта кофемашина — отличный выбор.";
+        chH.push({r:"user",c:q},{r:"assistant",c:ans});addMsg("a",ans);
+      }catch(e){addMsg("a","Ошибка: "+e.message)}
+      chL=false;if(csnd)csnd.disabled=false;
+    }
+    if(cin)cin.addEventListener("keydown",function(e){if(e.key==="Enter")sendChat()});
+    if(csnd)csnd.addEventListener("click",sendChat);
+
+    clearTimeout(safetyTimer);
+    g("lf").style.width="100%";
+    await new Promise(function(r){setTimeout(r,600)});
+    showApp();
+
+  }catch(e){
+    console.error("main() error:",e);
+    clearTimeout(safetyTimer);
+    ldH("Ошибка: "+e.message+" — загружаем fallback");
+    setTimeout(function(){showApp(FALLBACK)},1500);
   }
-  // Accessories
-  if(d.accessories && d.accessories.length) {
-    var ag=g("ag");
-    if(ag) ag.innerHTML=d.accessories.map(function(a){
-      return "<div class='ac2'><div class='an'>"+a.name+"</div><div class='ar'>"+a.reason+"</div><div class='ap'>"+a.price+"</div></div>";
-    }).join("");
-  }
-  // Care
-  if(d.care_tip) { var ct=g("ct"); if(ct) ct.textContent=d.care_tip }
-  // FAQ
-  if(d.faq && d.faq.length) {
-    var fq=g("fq");
-    if(fq) fq.innerHTML=d.faq.map(function(item){
-      return "<div class='fi2'><div class='fq3'>"+item.q+"</div><div class='fa'>"+item.a+"</div></div>";
-    }).join("");
-  }
-  // Show initial sections
-  if(d.show_sections && d.show_sections.length) d.show_sections.forEach(function(id){showSec("s"+id)});
 }
 
-// Section transforms
-function showSec(id) {
-  var el=g(id); if(!el) return;
-  el.classList.remove("h");
-  el.classList.add("j");
-  el.classList.add("f");
-  setTimeout(function(){el.classList.remove("j","f")},2500);
-  var nb=el.querySelector(".nb2"); if(nb) setTimeout(function(){nb.style.opacity="0";nb.style.transition="opacity 1s"},6000);
-  setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"})},300);
-}
-function hideSec(id) {
-  var el=g(id); if(!el||el.classList.contains("h")) return;
-  el.style.opacity="0";el.style.transform="translateY(-12px)";
-  setTimeout(function(){el.classList.add("h");el.style.opacity="";el.style.transform=""},400);
-}
-function updateFeatures(arr) {
-  var fg=g("fg"); if(!fg||!arr||!arr.length) return;
-  fg.innerHTML=arr.map(function(f,i){
-    return "<div class='fc j' style='animation-delay:"+(i*.08)+"s'><div class='fe'>"+f.emoji+"</div><div class='fn'>"+f.title+"</div><div class='fd'>"+f.desc+"</div><div class='fb'></div></div>";
-  }).join("");
-}
-function applyTransform(tr) {
-  if(!tr) return [];
-  var notes=[];
-  if(tr.show&&tr.show.length){tr.show.forEach(function(id){showSec("s"+id)});notes.push("↑ "+tr.show.join(", "))}
-  if(tr.hide&&tr.hide.length){tr.hide.forEach(function(id){hideSec("s"+id)});notes.push("↓ "+tr.hide.join(", "))}
-  if(tr.flash){var fe=g("s"+tr.flash);if(fe){fe.classList.add("f");setTimeout(function(){fe.classList.remove("f")},2500);setTimeout(function(){fe.scrollIntoView({behavior:"smooth",block:"start"})},200)}}
-  if(tr.update_features&&tr.update_features.length){updateFeatures(tr.update_features);notes.push("features")}
-  if(tr.update_hero){var u=tr.update_hero;if(u.title){var ht2=g("ht");if(ht2){var w=u.title.split(" ");if(w.length>1){w[w.length-1]="<span class='a'>"+w[w.length-1]+"</span>"}ht2.innerHTML=w.join(" ")}}if(u.sub){var hs2=g("hs");if(hs2)hs2.textContent=u.sub}if(u.angle){var ha2=g("hang");if(ha2)ha2.textContent=u.angle}if(u.cta){var hb2=g("hbtn");if(hb2)hb2.textContent=u.cta}notes.push("hero")}
-  if(tr.update_design&&tr.update_design.accent){applyDesign(tr.update_design);notes.push("дизайн")}
-  if(tr.update_interior){var ui=tr.update_interior;var it2=g("it"),ib2=g("ib");if(it2&&ui.title)it2.textContent=ui.title;if(ib2&&ui.body)ib2.textContent=ui.body}
-  if(tr.update_comparison){var uc=tr.update_comparison;["w","b","g","s"].forEach(function(k){var el=g("c"+k);if(el&&uc[k==="w"?"winner":k==="b"?"breville":k==="g"?"gaggia":"sage"])el.textContent=uc[k==="w"?"winner":k==="b"?"breville":k==="g"?"gaggia":"sage"]})}
-  if(tr.inject_block&&tr.inject_block.html){showSec("sinj");var ijt=g("ijt"),ijc=g("ijc");if(ijt&&tr.inject_block.title)ijt.textContent=tr.inject_block.title;if(ijc)ijc.innerHTML=tr.inject_block.html}
-  return notes;
-}
-
-// Chat
-function setupChat(OAK, profileType, vis) {
-  var chatOpen=true;
-  g("ch").addEventListener("click",function(){chatOpen=!chatOpen;g("cb2").className="cb"+(chatOpen?"":" mini");g("ctg").textContent=chatOpen?"▼":"▲"});
-  function addMsg(side,text,note){var ce=g("ce");if(ce)ce.style.display="none";var mc=g("cm");var d=document.createElement("div");d.className=side==="u"?"mu":"ma";var b=document.createElement("div");b.className="bb "+(side==="u"?"bbu":"bba");b.textContent=text;d.appendChild(b);if(note){var n=document.createElement("div");n.className="bnote";n.innerHTML="🔄 "+note;d.appendChild(n)}mc.appendChild(d);mc.scrollTop=mc.scrollHeight}
-  function sq(q){g("cin").value=q;sendChat()}
-  async function sendChat(){if(chL)return;var q=g("cin").value.trim();if(!q)return;g("cin").value="";chL=true;g("csnd").disabled=true;addMsg("u",q);var ty=document.createElement("div");ty.className="ma";ty.id="cty";var tb=document.createElement("div");tb.className="bty";tb.innerHTML="<div class='btd'></div><div class='btd'></div><div class='btd'></div>";ty.appendChild(tb);g("cm").appendChild(ty);g("cm").scrollTop=g("cm").scrollHeight;
-    var hist=chH.slice(-6).map(function(m){return m.role+": "+m.content}).join("
-");
-    var cp="Ты — консультант DeLonghi La Specialista Arte (89990руб).
-"
-      +"15 бар (раб. 9), 40 сек, 1450Вт, кофемолка 8 ур., бойлер 2.3л, гарантия 2 года.
-"
-      +"Конкуренты: Breville 95k, Gaggia 45k, Sage 65k. Профиль: "+profileType+"
-"
-      +"История:
-"+hist+"
-Вопрос: "+q+"
-
-"
-      +"Ответь 2-4 предложения. Реши какие секции показать/обновить.
-"
-      +"Правила: про давление/технику → show:["tech"],flash:"tech"; про дизайн/интерьер → show:["int"],update_interior; про сравнение → show:["cmp"],update_comparison; про уход/чистку → show:["care"]; от новичка → show:["faq"]
-"
-      +"ВСЕГДА update_features (4 карточки под тему вопроса).
-"
-      +"Верни JSON: {"answer":"...","transform":{"show":[],"hide":[],"flash":"","update_hero":{"title":"","sub":"","angle":"","cta":""},"update_features":[{"emoji":"","title":"","desc":""},{"emoji":"","title":"","desc":""},{"emoji":"","title":"","desc":""},{"emoji":"","title":"","desc":""}],"update_interior":{"title":"","body":""},"update_comparison":{"winner":"","breville":"","gaggia":"","sage":""},"update_design":null,"inject_block":{"html":"","title":""}}}";
-    try{var r=await sf("https://api.openai.com/v1/chat/completions",{method:"POST",headers:{"Authorization":"Bearer "+OAK,"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-4o-mini",messages:[{role:"user",content:cp}],temperature:0.7,response_format:{type:"json_object"}})},30000);var rd=await r.json();var cnt=rd.choices&&rd.choices[0]&&rd.choices[0].message&&rd.choices[0].message.content;if(!cnt)throw new Error("No content");var parsed=JSON.parse(cnt);var ans=parsed.answer||"Ошибка.";chH.push({role:"user",content:q},{role:"assistant",content:ans});var ty2=g("cty");if(ty2)ty2.parentNode.removeChild(ty2);var notes=applyTransform(parsed.transform);addMsg("a",ans,notes.length?notes.join(", "):"");if(notes.length){var csb=g("csb");if(csb)csb.textContent="Обновлено: "+notes.join(", ")}if(vis){var evs=(vis.events||[]).concat([{type:"chat",q:q.substring(0,80),ts:new Date().toISOString()}]).slice(-100);vis.events=evs;sbU(vis.id,{events:evs,last_seen:new Date().toISOString()})}}catch(e){var ty3=g("cty");if(ty3)ty3.parentNode.removeChild(ty3);addMsg("a","Ошибка: "+e.message)}
-    chL=false;g("csnd").disabled=false}
-  g("sq1").addEventListener("click",function(){sq(this.textContent)});
-  g("sq2").addEventListener("click",function(){sq(this.textContent)});
-  g("sq3").addEventListener("click",function(){sq(this.textContent)});
-  g("sq4").addEventListener("click",function(){sq(this.textContent)});
-  g("cin").addEventListener("keydown",function(e){if(e.key==="Enter")sendChat()});
-  g("csnd").addEventListener("click",sendChat);
-}
-
-async function main() {
-  var safetyTimer = setTimeout(function(){var lo=document.getElementById('loader'),ap=document.getElementById('app');if(lo)lo.style.display='none';if(ap){ap.style.display='block';if(!ap.innerHTML)ap.innerHTML="<div style='padding:60px;color:#fff;font-family:sans-serif;background:#0a0a0a;min-height:100vh'><h1 style='font-size:48px;font-weight:900'>DeLonghi La <span style=color:#C57E33>Specialista</span> Arte</h1><p style='color:rgba(255,255,255,.5);margin-top:16px'>89 990 руб · 15 бар · 1450Вт · Гарантия 2 года</p></div>";}}, 18000);
-  // STEP 1: Fingerprint
-  ldSt(1,"ac","считываем...");
-  ldH("12 сигналов: OS, браузер, экран, время, ядра CPU...");
-  var fp = getFP();
-  var ut = detectProfile(fp);
-  profileType = ut;
-
-  var keyP = Promise.resolve(OAK);
+main();
+</script>
+</body>
+</html>
