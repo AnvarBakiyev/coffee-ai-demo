@@ -226,6 +226,44 @@ async function main(){
         +"</div></div>";
     }
     g("app").innerHTML=appHTML;
+
+    // Fill {{placeholders}} from GPT content
+    if(ct){
+      var _r=function(s,k,v){return s.split("{{"+k+"}}").join(v||"")};
+      var _inner=g("app").innerHTML;
+      _inner=_r(_inner,"hero_title",ct.hero_title||"DeLonghi La Specialista Arte");
+      _inner=_r(_inner,"hero_sub",ct.hero_sub||"Профессиональный эспрессо у вас дома");
+      _inner=_r(_inner,"hero_angle",ct.hero_angle||"");
+      _inner=_r(_inner,"cta_text",ct.cta_text||"Купить за 89 990 ₽");
+      _inner=_r(_inner,"profile_label",LABELS[profile]||"");
+      if(ct.features&&ct.features.length){
+        var _fi=ct.features.map(function(f,i){
+          return "<div class='fc' style='animation-delay:"+(i*0.08)+"s'><div class='fe'>"+(f.emoji||"")+"</div><div class='fn'>"+(f.title||"")+"</div><div class='fd'>"+(f.desc||"")+"</div></div>";
+        }).join("");
+        _inner=_r(_inner,"features_grid",_fi);
+      }
+      if(ct.reviews){
+        _inner=_r(_inner,"reviews_summary",ct.reviews.summary||"");
+        if(ct.reviews.cards&&ct.reviews.cards.length){
+          var _rc=ct.reviews.cards.map(function(rv){
+            return "<div class='rcard'><b>"+rv.author+"</b> &middot; "+rv.source+"<br><span style='color:#f59e0b'>"+"★".repeat(rv.rating||5)+"</span><br><small>"+rv.text+"</small></div>";
+          }).join("");
+          _inner=_r(_inner,"reviews_cards",_rc);
+        }
+      }
+      if(ct.faq&&ct.faq.length){
+        var _fq=ct.faq.map(function(item){
+          return "<div style='padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)'><div style='font-weight:600;margin-bottom:4px'>"+item.q+"</div><div style='color:rgba(255,255,255,.5);font-size:13px'>"+item.a+"</div></div>";
+        }).join("");
+        _inner=_r(_inner,"faq_items",_fq);
+      }
+      // Clear any remaining unfilled placeholders
+      _inner=_inner.replace(/\{\{[a-z_]+\}\}/g,"");
+      g("app").innerHTML=_inner;
+    } else {
+      // No content from GPT — clear raw placeholders
+      g("app").innerHTML=g("app").innerHTML.replace(/\{\{[a-z_]+\}\}/g,"");
+    }
     ldSt(3,"dn",tpl?"coffee_tpl_dark "+(tpl.length/1024).toFixed(1)+"KB":"built");
 
     // STEP 4: Apply design
