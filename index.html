@@ -289,6 +289,38 @@ async function main() {
   // STEP 2: Three parallel requests
   ldSt(2,"ac","GPT + Extella API...");
   ldH("3 параллельных запроса: дизайн-система + контент + шаблон из библиотеки");
+  // Step 2 timeout safety
+  var _step2done = false;
+  var _step2timer = setTimeout(function(){
+    if(!_step2done){
+      console.warn("Step 2 timeout — using fallbacks");
+      ldSt(2,"dn","timeout, using fallback");
+      ldSt(3,"ac","рендерим fallback...");
+      g("app").innerHTML = FALLBACK_TPL;
+      ldSt(3,"dn","fallback шаблон");
+      ldSt(4,"ac","готово!");
+      g("lf").style.width="100%";
+      try{setupChat(OAK,profileType,vis)}catch(e){}
+      g("loader").style.opacity="0";
+      setTimeout(function(){g("loader").style.display="none";g("app").style.display="block"},600);
+    }
+  }, 20000);
+  // Step 2 timeout safety
+  var _step2done = false;
+  var _step2timer = setTimeout(function(){
+    if(!_step2done){
+      console.warn("Step 2 timeout — using fallbacks");
+      ldSt(2,"dn","timeout, using fallback");
+      ldSt(3,"ac","рендерим fallback...");
+      g("app").innerHTML = FALLBACK_TPL;
+      ldSt(3,"dn","fallback шаблон");
+      ldSt(4,"ac","готово!");
+      g("lf").style.width="100%";
+      try{setupChat(OAK,profileType,vis)}catch(e){}
+      g("loader").style.opacity="0";
+      setTimeout(function(){g("loader").style.display="none";g("app").style.display="block"},600);
+    }
+  }, 20000);
 
   if(!OAK){ldSt(2,"dn","no key");ldH("OpenAI key not found in Supabase config");return}
 
@@ -340,6 +372,8 @@ async function main() {
   var content = results[1];
   var templateCode = results[2];
 
+  _step2done=true;clearTimeout(_step2timer);
+  _step2done=true;clearTimeout(_step2timer);
   ldSt(2,"dn",(designSystem&&designSystem.accent)||"готово");
 
   // Show design preview
