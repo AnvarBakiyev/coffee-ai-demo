@@ -317,18 +317,25 @@ async function main() {
     +"Верни ТОЛЬКО JSON: {"hero_title":"заголовок","hero_sub":"подзаголовок","hero_angle":"угол подачи","cta_text":"кнопка","features":[{"emoji":"","title":"","desc":""},{"emoji":"","title":"","desc":""},{"emoji":"","title":"","desc":""},{"emoji":"","title":"","desc":""}],"reviews":{"summary":"","cards":[{"author":"","source":"Ozon","rating":5,"text":"","quote":""},{"author":"","source":"Яндекс.Маркет","rating":4,"text":"","quote":""},{"author":"","source":"iRecommend","rating":5,"text":"","quote":""}]},"accessories":[{"name":"","reason":"","price":""},{"name":"","reason":"","price":""},{"name":"","reason":"","price":""}],"care_tip":"","faq":[{"q":"","a":""},{"q":"","a":""},{"q":"","a":""}],"show_sections":[]}";
 
   function callAI(prompt) {
-    return sf("https://api.openai.com/v1/chat/completions",{method:"POST",headers:{"Authorization":"Bearer "+OAK,"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-4o-mini",messages:[{role:"user",content:prompt}],temperature:0.9,response_format:{type:"json_object"}})},25000)
+    return sf("https://api.openai.com/v1/chat/completions",{method:"POST",headers:{"Authorization":"Bearer "+OAK,"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-4o-mini",messages:[{role:"user",content:prompt}],temperature:0.9,response_format:{type:"json_object"}})},15000)
       .then(function(r){return r.json()}).then(function(d){var c=d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content;return c?JSON.parse(c):null}).catch(function(){return null});
   }
 
   // Fetch template from Extella library — THIS is the CSPL innovation
   // Template is a living expert that can be updated without redeployment
   function fetchTemplate() {
-    return sf(ET+"/api/expert/get/coffee_tpl_dark",{headers:{"Content-Type":"application/json","X-Auth-Token":ETK}},10000)
+    return sf(ET+"/api/expert/get/coffee_tpl_dark",{headers:{"Content-Type":"application/json","X-Auth-Token":ETK}},6000)
       .then(function(r){return r.json()}).then(function(d){return d.expert_code||d.code||""}).catch(function(){return ""});
   }
 
-  var results = await Promise.all([callAI(designPrompt), callAI(contentPrompt), fetchTemplate()]);
+  // Use allSettled so one failure doesn't block others
+  // Each request has its own timeout built into sf()
+  var results = await Promise.allSettled([
+    callAI(designPrompt).catch(function(e){console.warn("design AI error:",e);return null}),
+    callAI(contentPrompt).catch(function(e){console.warn("content AI error:",e);return null}),
+    fetchTemplate().catch(function(e){console.warn("template fetch error:",e);return FALLBACK_TPL})
+  ]);
+  results = results.map(function(r){ return r.status==="fulfilled"?r.value:null });
   var designSystem = results[0];
   var content = results[1];
   var templateCode = results[2];
