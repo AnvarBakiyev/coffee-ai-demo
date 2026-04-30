@@ -147,21 +147,6 @@ nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid 
 </style>
 </head>
 <body>
-<template id="tpl_base">
-<nav><div class="nl">Coffee<span>Shop</span></div><div class="nr"><div id="nai">ИИ активен</div><div id="nb">{{profile_label}}</div></div></nav>
-<section id="sh"><div class="hw"><div class="hl"><div class="hey">DeLonghi · La Specialista Arte · EC9155.MB</div><h1 id="ht">{{hero_title}}</h1><p id="hs">{{hero_sub}}</p><p id="hang">{{hero_angle}}</p><div class="hcta"><button class="btn" id="hbtn">{{cta_text}}</button><div><div class="pm">89 990 &#8381;</div><div class="ps">Бесплатная доставка · 2 года</div></div></div></div><div class="hr"><div class="hs2"><div class="hn">15</div><div class="hu">BAR</div><div class="hl2">Давление</div></div><div class="hs2"><div class="hn">40</div><div class="hu">SEC</div><div class="hl2">Прогрев</div></div><div class="hs2"><div class="hn">8</div><div class="hu">LVL</div><div class="hl2">Помол</div></div></div></div></section>
-<section id="sfeat" class="s"><div class="si"><div class="sh2"><span class="sn">01</span><div class="sl"></div><span class="st">Почему подходит вам</span></div><div class="fg" id="fg"><div class="fc"><div class="fe">&#9749;</div><div class="fn">Загрузка...</div><div class="fd">ИИ подбирает аргументы</div><div class="fb"></div></div><div class="fc"><div class="fe">&#9889;</div><div class="fn">Загрузка...</div><div class="fd">Контент готовится</div><div class="fb"></div></div><div class="fc"><div class="fe">&#127919;</div><div class="fn">Загрузка...</div><div class="fd"></div><div class="fb"></div></div><div class="fc"><div class="fe">&#10024;</div><div class="fn">Загрузка...</div><div class="fd"></div><div class="fb"></div></div></div></div></section>
-<section id="stech" class="s h"><div class="si"><div class="sh2"><span class="sn">&#8212;</span><div class="sl"></div><span class="st">Технические характеристики</span><span class="nb2">НОВЫЙ БЛОК</span></div><div class="sg"><div class="sb"><div class="sbn">15</div><div class="sbu">BAR</div><div class="sbl">Максимальное давление</div><div class="sbd">Рабочее 9 бар — для эспрессо</div></div><div class="sb"><div class="sbn">40</div><div class="sbu">SEC</div><div class="sbl">Время прогрева</div><div class="sbd">Термоблок готов</div></div><div class="sb"><div class="sbn">1450</div><div class="sbu">WATT</div><div class="sbl">Мощность</div><div class="sbd">Бойлер 2.3 л</div></div></div></div></section>
-<section id="sint" class="s h"><div class="si"><div class="sh2"><span class="sn">&#8212;</span><div class="sl"></div><span class="st">В вашем интерьере</span><span class="nb2">НОВЫЙ БЛОК</span></div><div class="iw"><div class="iv">&#9749;</div><div class="ic"><div id="it">Объект желания</div><div id="ib">Матовый чёрный корпус вписывается в любой интерьер.</div><div class="itags"><div class="itag">Матовый чёрный</div><div class="itag">Нержавеющая сталь</div><div class="itag">Компактный</div></div></div></div></div></section>
-<section id="scmp" class="s h"><div class="si"><div class="sh2"><span class="sn">&#8212;</span><div class="sl"></div><span class="st">Сравнение</span><span class="nb2">НОВЫЙ БЛОК</span></div><div class="cw"><div><div class="cwl">&#10003; Ваш выбор</div><div class="cwn">DeLonghi La Specialista Arte</div><div class="cv2">Оптимальное соотношение</div></div><div class="cwp">89 990&#8381;</div></div><div class="ci2"><div><div class="cn2">Breville Barista Express</div><div class="cv2">Дороже, более продвинутые настройки</div></div><div class="cp2">95 000&#8381;</div></div><div class="ci2"><div><div class="cn2">Gaggia Classic Pro</div><div class="cv2">Дешевле, требует навыков</div></div><div class="cp2">45 000&#8381;</div></div><div class="ci2"><div><div class="cn2">Sage Bambino Plus</div><div class="cv2">Быстрее прогрев, меньше контроля</div></div><div class="cp2">65 000&#8381;</div></div></div></section>
-<section id="srev" class="s"><div class="si"><div class="sh2"><span class="sn">03</span><div class="sl"></div><span class="st">Отзывы</span></div><div class="rs"><div class="rn">4.7</div><div><div class="rstar">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div id="rsumm">Загрузка...</div></div></div><div id="rcards"></div></div></section>
-<section id="sfaq" class="s h"><div class="si"><div class="sh2"><span class="sn">&#8212;</span><div class="sl"></div><span class="st">Частые вопросы</span><span class="nb2">НОВЫЙ БЛОК</span></div><div class="fq2" id="fq"></div></div></section>
-<section id="scare" class="s h"><div class="si"><div class="sh2"><span class="sn">&#8212;</span><div class="sl"></div><span class="st">Уход и обслуживание</span><span class="nb2">НОВЫЙ БЛОК</span></div><div class="cc"><div id="ct">Загрузка...</div></div></div></section>
-<section id="sacc" class="s"><div class="si"><div class="sh2"><span class="sn">04</span><div class="sl"></div><span class="st">С этим берут</span></div><div class="ag" id="ag"></div></div></section>
-<section id="sinj" class="s h"><div class="si"><div class="sh2"><span class="sn">&#10022;</span><div class="sl"></div><span class="st" id="ijt">Специально для вас</span><span class="nb2">ДОБАВЛЕНО ИИ</span></div><div id="ijc"></div></div></section>
-<div style="height:200px"></div>
-<div class="cw2"><div class="cb" id="cb2"><div class="ch" id="ch"><div class="cd"></div><div class="ct2">ИИ-консультант</div><div id="csb">Задайте вопрос — страница изменится</div><div id="ctg">&#9660;</div></div><div class="cm" id="cm"><div class="ce" id="ce">Задайте вопрос — страница будет меняться<div class="csugg"><button class="csq" id="sq1">Какое давление у машины?</button><button class="csq" id="sq2">Как выглядит в интерьере?</button><button class="csq" id="sq3">Сравни с Breville и Gaggia</button><button class="csq" id="sq4">Как часто нужно чистить?</button></div></div></div><div class="cinp"><input id="cin" placeholder="Спросите что угодно..."><button id="csnd">&#8594;</button></div></div></div>
-</template>
 <div id="loader">
   <div class="lw">
     <div class="ll"><div class="lm">&#9889;</div><div class="ln">Extella Intelligence</div></div>
@@ -179,323 +164,38 @@ nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid 
 </div>
 <div id="app"></div>
 <script>
-var OAK=atob('c2stcHJvai1UWEVYS0x3bjcyMHhKaFdYYWFaYjZfTGZOZmItT3o5YTRWU3lrWHlsb05EYkp2a1I2Vjl6ckJxSGZTZzJvV3FiM1pTVjI5WGduT1QzQmxia0ZKLU10N2JfZ0RPeHNvMmlRWEhFQW1uNGpaNXhjck5SRXc5aHNKODdZX3FzdHpycmtrS3BOVlNIdmdtakxRTVBHd1NhbkpvRHJhY0E=');
-var SB='https://nsjwtywrnlvhnxuflbpg.supabase.co';
-var SBK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0';
-var SBH={apikey:SBK,'Authorization':'Bearer '+SBK,'Content-Type':'application/json'};
-
-var LABELS={
-  espresso_purist:'Ценитель эспрессо',
-  espresso_ritualist:'Эспрессо-ритуал',
-  latte_social:'Латте & кофейни',
-  latte_wellness:'Кофе и баланс',
-  tech_explorer_pro:'Тех эксперт',
-  tech_explorer_curious:'Исследователь',
-  gift_buyer_premium:'Премиум-подарок',
-  gift_buyer_value:'Выгодный подарок'
-};
-
-var EXTELLA_PROFILES=['espresso_ritualist','latte_social','latte_wellness','gift_buyer_premium'];
-
+(async function(){
+var _ET='05c2bd60-1520-415e-becb-4e036acbbc1c';
+var _OB='c2stcHJvai1UWEVYS0x3bjcyMHhKaFdYYWFaYjZfTGZOZmItT3o5YTRWU3lrWHlsb05EYkp2a1I2Vjl6ckJxSGZTZzJvV3FiM1pTVjI5WGduT1QzQmxia0ZKLU10N2JfZ0RPeHNvMmlRWEhFQW1uNGpaNXhjck5SRXc5aHNKODdZX3FzdHpycmtrS3BOVlNIdmdtakxRTVBHd1NhbkpvRHJhY0E=';
+var _SB='https://nsjwtywrnlvhnxuflbpg.supabase.co';
+var _SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zand0eXdybmx2aG54dWZsYnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzE0MTUsImV4cCI6MjA5MjQ0NzQxNX0.oijoVbdxD6N1MRwK9G5v1mrOFM9uxvLoXiM10iVqPd0';
+var BASE='https://api.extella.ai';
+var H={'X-Auth-Token':_ET};
 function g(id){return document.getElementById(id)}
-
-function ldSt(n,s,v){
-  var el=g('l'+n);if(el)el.className='li '+s;
-  var lv=g('lv'+n);if(lv&&v)lv.textContent=v;
-  var lf=g('lf');if(lf)lf.style.width=(n*25)+'%';
-}
 function ldH(t){var el=g('lh');if(el)el.textContent=t}
-function uid(){return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c=='x'?r:(r&3|8)).toString(16)})}
-function gc(n){var c=document.cookie.split(';').map(x=>x.trim()).find(x=>x.startsWith(n+'='));return c?c.split('=')[1]:null}
-function sc(n,v,d){var e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+'='+v+';expires='+e.toUTCString()+';path=/'}
-function sf(url,opts,ms){
-  return new Promise((res,rej)=>{
-    var ac=new AbortController();
-    var t=setTimeout(()=>ac.abort(),ms||8000);
-    fetch(url,{...(opts||{}),signal:ac.signal})
-      .then(r=>{clearTimeout(t);res(r)})
-      .catch(e=>{clearTimeout(t);rej(e)});
-  });
+ldH('получаем логику из Extella...');
+try{
+var rs=await Promise.all([
+  fetch(BASE+'/api/expert/get/coffee_tpl_base',{headers:H}).then(r=>r.json()),
+  fetch(BASE+'/api/expert/get/coffee_loader_js',{headers:H}).then(r=>r.json())
+]);
+var tplHtml=rs[0].expert_code||'';
+var jsCode=rs[1].expert_code||'';
+jsCode=jsCode.replace('%%OAK%%',_OB).replace('%%SB%%',_SB).replace('%%SBK%%',_SK);
+var tplEl=document.createElement('template');
+tplEl.id='tpl_base';
+tplEl.innerHTML=tplHtml;
+document.body.insertBefore(tplEl,g('loader'));
+var sc=document.createElement('script');
+sc.textContent=jsCode;
+document.body.appendChild(sc);
+}catch(e){
+console.error('bootstrap:',e);
+ldH('Ошибка: '+e.message);
+setTimeout(function(){g('loader').style.display='none';g('app').style.display='block';},3000);
 }
+})();
 
-function getFP(){
-  var ua=navigator.userAgent,h=new Date().getHours(),day=new Date().getDay();
-  var os=/Mac/.test(ua)&&!/iPhone|iPad/.test(ua)?'mac':/Win/.test(ua)?'win':/Linux/.test(ua)?'linux':'other';
-  var ref=document.referrer||'';
-  return{
-    os, mob:/Mobile|Android|iPhone|iPad/.test(ua),
-    sw:screen.width, h, day,
-    tz:Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC',
-    cores:navigator.hardwareConcurrency||2,
-    dpr:window.devicePixelRatio||1,
-    soc:/instagram|tiktok|facebook|twitter|vk\.com/.test(ref),
-    sch:/google|yandex|bing/.test(ref)
-  };
-}
-
-function detectProfile(fp){
-  var s={espresso_purist:0,espresso_ritualist:0,latte_social:0,latte_wellness:0,
-         tech_explorer_pro:0,tech_explorer_curious:0,gift_buyer_premium:0,gift_buyer_value:0};
-  if(fp.os==='mac'){s.espresso_ritualist+=2;s.tech_explorer_pro+=2;s.gift_buyer_premium+=1}
-  if(fp.os==='win'){s.espresso_purist+=2;s.tech_explorer_curious+=2;s.gift_buyer_value+=1}
-  if(fp.os==='linux'){s.tech_explorer_pro+=3;s.tech_explorer_curious+=2}
-  if(fp.mob){s.latte_social+=3;s.gift_buyer_value+=2}else{s.espresso_purist+=1;s.tech_explorer_pro+=1}
-  if(fp.sw>=2560){s.tech_explorer_pro+=2;s.gift_buyer_premium+=2}
-  if(fp.dpr>=2){s.gift_buyer_premium+=2;s.latte_wellness+=1}
-  if(fp.h>=6&&fp.h<=9)s.espresso_purist+=3;
-  if(fp.h>=10&&fp.h<=14){s.latte_wellness+=2;s.latte_social+=1}
-  if(fp.h>=15&&fp.h<=18){s.tech_explorer_curious+=2;s.gift_buyer_value+=1}
-  if(fp.h>=19&&fp.h<=22){s.espresso_ritualist+=2;s.gift_buyer_premium+=2}
-  if(fp.h>=22||fp.h<=5){s.espresso_purist+=2;s.tech_explorer_pro+=1}
-  if(fp.day===0||fp.day===6){s.latte_wellness+=2;s.espresso_ritualist+=1}
-  else{s.espresso_purist+=1;s.tech_explorer_curious+=1}
-  if(fp.cores>=8)s.tech_explorer_pro+=2;
-  if(fp.soc){s.latte_social+=4;s.gift_buyer_premium+=1}
-  if(fp.sch){s.tech_explorer_curious+=2;s.latte_wellness+=1}
-  return Object.entries(s).sort((a,b)=>b[1]-a[1])[0][0];
-}
-
-// ← КЛЮЧЕВОЙ FIX: тема применяется через data-theme ДО любых GPT вызовов
-function applyTheme(profile){
-  var isExtella=EXTELLA_PROFILES.indexOf(profile)!==-1;
-  document.documentElement.setAttribute('data-theme', isExtella?'extella':'dark');
-  return isExtella;
-}
-
-// Для dark-профилей: GPT генерирует дизайн, здесь он применяется поверх vars
-function applyDesign(ds){
-  if(!ds)return;
-  var r=document.documentElement.style;
-  if(ds.bg){r.setProperty('--bg',ds.bg);document.body.style.background=ds.bg}
-  if(ds.bg2)r.setProperty('--bg2',ds.bg2);
-  if(ds.text){r.setProperty('--txt',ds.text);r.setProperty('--txt-h',ds.text)}
-  if(ds.accent){
-    r.setProperty('--ac',ds.accent);
-    r.setProperty('--acl',ds.accentl||ds.accent);
-    var hex=ds.accent.replace('#','');
-    if(hex.length===6)r.setProperty('--ar',parseInt(hex.slice(0,2),16)+','+parseInt(hex.slice(2,4),16)+','+parseInt(hex.slice(4,6),16));
-  }
-  if(ds.radius){r.setProperty('--r',ds.radius);r.setProperty('--r2',ds.radius)}
-  if(ds.muted)r.setProperty('--mt',ds.muted);
-  if(ds.border)r.setProperty('--bd',ds.border);
-  if(ds.faint){r.setProperty('--ft',ds.faint);r.setProperty('--ft2',ds.faint)}
-}
-
-function fillContent(ct,profile){
-  if(!ct)return;
-  var ht=g('ht');
-  if(ht&&ct.hero_title){
-    var w=ct.hero_title.split(' ');
-    if(w.length>1)w[w.length-1]='<span class="a">'+w[w.length-1]+'</span>';
-    ht.innerHTML=w.join(' ');
-  }
-  var hs=g('hs');if(hs&&ct.hero_sub)hs.textContent=ct.hero_sub;
-  var hang=g('hang');if(hang&&ct.hero_angle)hang.textContent=ct.hero_angle;
-  var hbtn=g('hbtn');if(hbtn&&ct.cta_text)hbtn.textContent=ct.cta_text;
-  var nb=g('nb');if(nb)nb.textContent=LABELS[profile]||'';
-  if(ct.features&&ct.features.length){
-    var fg=g('fg');
-    if(fg)fg.innerHTML=ct.features.map((f,i)=>
-      `<div class="fc" style="animation-delay:${i*0.08}s">
-        <div class="fe">${f.emoji||''}</div>
-        <div class="fn">${f.title||''}</div>
-        <div class="fd">${f.desc||''}</div>
-        <div class="fb"></div>
-      </div>`).join('');
-  }
-  if(ct.reviews){
-    var rsumm=g('rsumm');if(rsumm&&ct.reviews.summary)rsumm.textContent=ct.reviews.summary;
-    var rcards=g('rcards');
-    if(rcards&&ct.reviews.cards)rcards.innerHTML=ct.reviews.cards.map(rv=>
-      `<div class="rcard">
-        <div class="rtop">
-          <div><div class="ra">${rv.author||''}</div><div class="rsrc">${rv.source||''}</div></div>
-          <div class="rss">${'★'.repeat(rv.rating||5)}</div>
-        </div>
-        <div class="rtxt">${rv.text||''}</div>
-        ${rv.quote?`<div class="rq">${rv.quote}</div>`:''}
-      </div>`).join('');
-  }
-  if(ct.accessories&&ct.accessories.length){
-    var ag=g('ag');
-    if(ag)ag.innerHTML=ct.accessories.map(a=>
-      `<div class="ac2">
-        <div class="an">${a.name||''}</div>
-        <div class="ar2">${a.reason||''}</div>
-        <div class="ap">${a.price||''}</div>
-      </div>`).join('');
-  }
-  if(ct.faq&&ct.faq.length){
-    var fq=g('fq');
-    if(fq)fq.innerHTML=ct.faq.map(item=>
-      `<div class="fi2">
-        <div class="fq3">${item.q||''}</div>
-        <div class="fa">${item.a||''}</div>
-      </div>`).join('');
-  }
-  var ct_el=g('ct');if(ct_el&&ct.care_tip)ct_el.textContent=ct.care_tip;
-}
-
-function setupChat(profile){
-  var chL=false;
-  var cm=g('cm');if(!cm)return;
-  var cb2=g('cb2'),ch=g('ch');
-  if(ch)ch.addEventListener('click',()=>{
-    if(cb2)cb2.className='cb'+(cb2.className.includes('mini')?'':' mini');
-  });
-  function addMsg(side,text){
-    var ce=g('ce');if(ce)ce.style.display='none';
-    var d=document.createElement('div');d.className=side==='u'?'mu':'ma';
-    var b=document.createElement('div');b.className='bb '+(side==='u'?'bbu':'bba');
-    b.textContent=text;d.appendChild(b);
-    cm.appendChild(d);cm.scrollTop=cm.scrollHeight;
-  }
-  function showSec(id){
-    var el=g('s'+id);if(!el)return;
-    el.classList.remove('h');el.classList.add('j','f');
-    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),300);
-  }
-  function hideSec(id){
-    var el=g('s'+id);if(!el||el.classList.contains('h'))return;
-    el.style.opacity='0';setTimeout(()=>{el.classList.add('h');el.style.opacity=''},400);
-  }
-  async function sendChat(){
-    if(chL)return;
-    var inp=g('cin');var q=inp?inp.value.trim():'';if(!q)return;
-    if(inp)inp.value='';chL=true;
-    var snd=g('csnd');if(snd)snd.disabled=true;
-    addMsg('u',q);
-    var ty=document.createElement('div');ty.className='ma';
-    ty.innerHTML='<div class="bty"><div class="btd"></div><div class="btd"></div><div class="btd"></div></div>';
-    cm.appendChild(ty);cm.scrollTop=cm.scrollHeight;
-    try{
-      var r=await sf('https://api.openai.com/v1/chat/completions',{
-        method:'POST',
-        headers:{'Authorization':'Bearer '+OAK,'Content-Type':'application/json'},
-        body:JSON.stringify({
-          model:'gpt-4o-mini',
-          messages:[{role:'user',content:`DeLonghi La Specialista Arte 89990руб. Профиль: ${LABELS[profile]}. Вопрос: ${q}. Ответь 2-3 предложения. JSON: {"answer":"...","transform":{"show":[],"hide":[],"flash":""}}`}],
-          temperature:0.7,response_format:{type:'json_object'}
-        })
-      },25000);
-      var rd=await r.json();
-      var cnt=rd.choices?.[0]?.message?.content;
-      if(!cnt)throw new Error('No content');
-      var parsed=JSON.parse(cnt);
-      ty.parentNode?.removeChild(ty);
-      var tr=parsed.transform||{};
-      if(tr.show?.length)tr.show.forEach(showSec);
-      if(tr.hide?.length)tr.hide.forEach(hideSec);
-      if(tr.flash)showSec(tr.flash);
-      addMsg('a',parsed.answer||'Ошибка.');
-    }catch(e){
-      ty.parentNode?.removeChild(ty);
-      addMsg('a','Ошибка: '+e.message);
-    }
-    chL=false;if(snd)snd.disabled=false;
-  }
-  ['sq1','sq2','sq3','sq4'].forEach(id=>{
-    var el=g(id);
-    if(el)el.addEventListener('click',function(){
-      var inp2=g('cin');if(inp2)inp2.value=this.textContent;sendChat();
-    });
-  });
-  g('cin')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
-  g('csnd')?.addEventListener('click',sendChat);
-}
-
-async function main(){
-  var ST=setTimeout(()=>{
-    var lo=g('loader'),ap=g('app');
-    if(lo){lo.style.opacity='0';setTimeout(()=>lo.style.display='none',600)}
-    if(ap)ap.style.display='block';
-  },20000);
-  try{
-    ldSt(1,'ac','считываем...');ldH('fingerprint...');
-    var fp=getFP();
-    var profile=detectProfile(fp);
-
-    // ← ТЕМА ПРИМЕНЯЕТСЯ СРАЗУ — до GPT, до рендера
-    var isExtella=applyTheme(profile);
-
-    await new Promise(r=>setTimeout(r,400));
-    ldSt(1,'dn',fp.os+' '+fp.sw+'px ['+(isExtella?'light':'dark')+']');
-
-    var vid=gc('vid');if(!vid){vid=uid();sc('vid',vid,365)}
-    try{
-      var vr=await sf(SB+'/rest/v1/visitors?id=eq.'+vid+'&limit=1',{headers:SBH},5000);
-      var vd=await vr.json();
-      sf(SB+'/rest/v1/visitors'+(Array.isArray(vd)&&vd.length?'?id=eq.'+vid:''),{
-        method:Array.isArray(vd)&&vd.length?'PATCH':'POST',
-        headers:{...SBH,Prefer:'return=minimal'},
-        body:JSON.stringify(Array.isArray(vd)&&vd.length
-          ?{visit_count:(vd[0].visit_count||1)+1,last_seen:new Date().toISOString()}
-          :{id:vid,fingerprint:fp,profile:{user_type:profile,theme:isExtella?'extella':'dark'},
-            visit_count:1,created_at:new Date().toISOString(),last_seen:new Date().toISOString()})
-      },3000).catch(()=>{});
-    }catch(e){}
-
-    ldSt(2,'ac','GPT...');ldH(isExtella?'контент (тема уже применена)':'дизайн + контент...');
-
-    var ctx=`Профиль: ${profile} (${LABELS[profile]}), OS: ${fp.os}, ${fp.sw}px, ${fp.h}:00`;
-    function aiCall(p){
-      return sf('https://api.openai.com/v1/chat/completions',{
-        method:'POST',
-        headers:{'Authorization':'Bearer '+OAK,'Content-Type':'application/json'},
-        body:JSON.stringify({model:'gpt-4o-mini',messages:[{role:'user',content:p}],temperature:0.9,response_format:{type:'json_object'}})
-      },20000).then(r=>r.json()).then(d=>{
-        var c=d.choices?.[0]?.message?.content;return c?JSON.parse(c):null;
-      }).catch(()=>null);
-    }
-
-    // Extella: только контент (1 GPT вызов). Dark: дизайн + контент (2 вызова параллельно)
-    var designP=isExtella
-      ? Promise.resolve(null)
-      : aiCall(`Дизайн для DeLonghi. ${ctx}. bg тёмный (вари цвет, не чёрный), accent яркий не золотой. JSON: {bg,bg2,accent,accentl,text,muted,border,faint,radius}`);
-    var contentP=aiCall(`Контент лендинга DeLonghi La Specialista Arte 89990руб. ${ctx}. JSON: {hero_title,hero_sub,hero_angle,cta_text,features:[{emoji,title,desc}x4],reviews:{summary,cards:[{author,source,rating,text,quote}x3]},accessories:[{name,reason,price}x3],care_tip,faq:[{q,a}x3]}`);
-
-    var settled=await Promise.allSettled([designP,contentP]);
-    var ds=settled[0].status==='fulfilled'?settled[0].value:null;
-    var ct=settled[1].status==='fulfilled'?settled[1].value:null;
-    ldSt(2,'dn',(ds&&ds.accent)||'ok');
-
-    ldSt(3,'ac','рендерим...');ldH('собираем страницу');
-    await new Promise(r=>setTimeout(r,100));
-
-    var tplEl=g('tpl_base');
-    var tpl=tplEl?tplEl.innerHTML:'';
-    if(ct){
-      const rpl=(s,k,v)=>s.split('{{'+k+'}}').join(v||'');
-      tpl=rpl(tpl,'hero_title',ct.hero_title||'DeLonghi La Specialista Arte');
-      tpl=rpl(tpl,'hero_sub',ct.hero_sub||'');
-      tpl=rpl(tpl,'hero_angle',ct.hero_angle||'');
-      tpl=rpl(tpl,'cta_text',ct.cta_text||'Купить');
-      tpl=rpl(tpl,'profile_label',LABELS[profile]||'');
-    }
-    tpl=tpl.replace(/\{\{[a-z_]+\}\}/g,'');
-    g('app').innerHTML=tpl;
-    ldSt(3,'dn','ok '+(tpl.length/1024).toFixed(1)+'KB');
-
-    ldSt(4,'ac','финализируем...');
-    await new Promise(r=>setTimeout(r,100));
-
-    if(ds)applyDesign(ds); // только для dark: overrides GPT цвета
-    fillContent(ct,profile);
-    setupChat(profile);
-
-    ldSt(4,'dn','готово');ldH('страница живая — чат меняет её в реальном времени');
-    clearTimeout(ST);
-    g('lf').style.width='100%';
-    await new Promise(r=>setTimeout(r,500));
-    var lo=g('loader');
-    if(lo){lo.style.opacity='0';setTimeout(()=>{lo.style.display='none';var ap=g('app');if(ap)ap.style.display='block'},600)}
-  }catch(e){
-    console.error('main:',e);clearTimeout(ST);
-    var lo=g('loader'),ap=g('app');
-    if(lo)lo.style.display='none';if(ap)ap.style.display='block';
-  }
-}
-main();
 </script>
 </body>
 </html>
