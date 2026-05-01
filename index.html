@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru" data-theme="extella">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>DeLonghi Arte</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ac:#C57E33;--acl:#d4984f;--ar:197,126,51;--r2:12px}
-[data-theme=dark]{--bg:#080808;--bg2:#0f0f0f;--txt:rgba(255,255,255,.88);--txt-h:#fff;--mt:rgba(255,255,255,.4);--mt2:rgba(255,255,255,.2);--bd:rgba(255,255,255,.07);--ft:rgba(255,255,255,.04);--ft2:rgba(255,255,255,.07);--dot:rgba(255,255,255,.04);--nav-bg:rgba(0,0,0,.9);--btn-txt:#000;--star:#fbbf24;--num:#fff;--chat-bg:#111;--chat-inp:rgba(255,255,255,.05);--txt-mid:rgba(255,255,255,.6)}
-[data-theme=extella]{--bg:#FAFAF8;--bg2:#F5F3EE;--txt:#1A1A1A;--txt-h:#0A0A0A;--mt:#8C8C8C;--mt2:#AAAAAA;--bd:rgba(0,0,0,.08);--ft:#F5F3EE;--ft2:#EBE8E1;--dot:rgba(0,0,0,.09);--nav-bg:rgba(250,250,248,.95);--btn-txt:#fff;--star:#C57E33;--num:#0A0A0A;--chat-bg:#FAFAF8;--chat-inp:#F5F3EE;--txt-mid:#555555}
+:root{--ac:#C57E33;--acl:#d4984f;--ar:197,126,51;--r2:12px;--bg:#FAFAF8;--bg2:#F5F3EE;--txt:#1A1A1A;--txt-h:#0A0A0A;--mt:#8C8C8C;--mt2:#AAAAAA;--bd:rgba(0,0,0,.08);--ft:#F5F3EE;--ft2:#EBE8E1;--dot:rgba(0,0,0,.09);--nav-bg:rgba(250,250,248,.95);--btn-txt:#fff;--star:#C57E33;--num:#0A0A0A;--chat-bg:#FAFAF8;--chat-inp:#F5F3EE;--txt-mid:#555555}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;transition:background .4s,color .4s}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,var(--dot) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
 nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:14px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
 .nl{font-size:16px;font-weight:800;color:var(--txt-h)}.nl span{opacity:.3}
@@ -53,7 +51,7 @@ nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid 
 @keyframes np{0%,100%{opacity:1}50%{opacity:.4}}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .fc{background:var(--ft);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;display:flex;flex-direction:column;gap:10px;transition:all .3s}
-.fc:hover{background:var(--bg);border-color:rgba(var(--ar),.25);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.fc:hover{background:#fff;border-color:rgba(var(--ar),.25);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .fe{font-size:26px;line-height:1}.fn{font-size:14px;font-weight:700;color:var(--txt-h)}
 .fd{font-size:13px;color:var(--mt);line-height:1.6}
 .fb{height:2px;border-radius:2px;background:var(--ac);opacity:.2}
@@ -98,7 +96,7 @@ nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid 
 .ap{font-family:'DM Mono',monospace;font-size:16px;color:var(--ac);font-weight:500}
 #sinj{background:rgba(var(--ar),.02);border-color:rgba(var(--ar),.1)}
 .cw2{position:fixed;bottom:24px;right:24px;width:380px;z-index:200}
-.cb{background:var(--chat-bg);border:1px solid var(--bd);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.12)}
+.cb{background:var(--chat-bg);border:1px solid var(--bd);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.08)}
 .ch{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;background:var(--chat-bg)}
 .cd{width:7px;height:7px;border-radius:50%;background:#10b981;animation:gg 2s infinite}
 .ct2{font-size:14px;font-weight:700;color:var(--txt-h);flex:1}
@@ -121,27 +119,27 @@ nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid 
 #cin::placeholder{color:var(--mt2)}
 #csnd{background:var(--ac);color:var(--btn-txt);border:none;border-radius:7px;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
 #csnd:disabled{opacity:.3}.cb.mini .cm,.cb.mini .cinp{display:none}
-#loader{position:fixed;inset:0;background:#080808;z-index:999;display:flex;align-items:center;justify-content:center;transition:opacity .7s}
+#loader{position:fixed;inset:0;background:#FAFAF8;z-index:999;display:flex;align-items:center;justify-content:center;transition:opacity .7s}
 .lw{width:100%;max-width:500px;padding:0 32px}
-.ll{display:flex;align-items:center;gap:10px;margin-bottom:48px;opacity:.45}
+.ll{display:flex;align-items:center;gap:10px;margin-bottom:48px;opacity:.6}
 .lm{width:26px;height:26px;background:#C57E33;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px}
-.ln{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
-.lt1{font-size:28px;font-weight:900;letter-spacing:-1px;color:#fff;margin-bottom:6px}
-.lt2{font-size:13px;color:rgba(255,255,255,.4);font-weight:300;margin-bottom:36px}
+.ln{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8C8C8C}
+.lt1{font-size:28px;font-weight:900;letter-spacing:-1px;color:#0A0A0A;margin-bottom:6px}
+.lt2{font-size:13px;color:#AAAAAA;font-weight:300;margin-bottom:36px}
 .ls{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
-.li{display:flex;align-items:center;gap:12px;padding:11px 15px;border-radius:9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);transition:all .5s}
-.li.ac{background:rgba(197,126,51,.07);border-color:rgba(197,126,51,.25)}
-.li.dn{background:rgba(16,185,129,.04);border-color:rgba(16,185,129,.15)}
-.ld2{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0;transition:all .4s}
+.li{display:flex;align-items:center;gap:12px;padding:11px 15px;border-radius:9px;background:#F5F3EE;border:1px solid rgba(0,0,0,.07);transition:all .5s}
+.li.ac{background:rgba(197,126,51,.08);border-color:rgba(197,126,51,.3)}
+.li.dn{background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.2)}
+.ld2{width:6px;height:6px;border-radius:50%;background:#AAAAAA;flex-shrink:0;transition:all .4s}
 .li.ac .ld2{background:#C57E33;animation:glow 1.4s infinite}.li.dn .ld2{background:#10b981}
 @keyframes glow{0%,100%{box-shadow:0 0 6px rgba(197,126,51,.5)}50%{box-shadow:0 0 14px rgba(197,126,51,.9)}}
-.llab{font-size:13px;color:rgba(255,255,255,.4);flex:1;transition:color .4s}
-.li.ac .llab{color:#fff;font-weight:500}.li.dn .llab{color:rgba(16,185,129,.7)}
+.llab{font-size:13px;color:#8C8C8C;flex:1;transition:color .4s}
+.li.ac .llab{color:#0A0A0A;font-weight:500}.li.dn .llab{color:#10b981}
 .lv{font-family:monospace;font-size:10px;color:#C57E33;opacity:0;transition:opacity .4s}
-.li.dn .lv,.li.ac .lv{opacity:.6}.lck{font-size:11px;color:rgba(16,185,129,.6);opacity:0;transition:.3s}.li.dn .lck{opacity:1}
-.lbar{height:1px;background:rgba(255,255,255,.06);border-radius:1px;overflow:hidden;margin-bottom:20px}
+.li.dn .lv,.li.ac .lv{opacity:.7}.lck{font-size:11px;color:#10b981;opacity:0;transition:.3s}.li.dn .lck{opacity:1}
+.lbar{height:1px;background:rgba(0,0,0,.08);border-radius:1px;overflow:hidden;margin-bottom:20px}
 .lfill{height:100%;background:linear-gradient(90deg,#C57E33,#d4984f);width:0;transition:width .9s ease}
-.lhint{font-family:monospace;font-size:10px;color:rgba(255,255,255,.2);text-align:center;min-height:14px}
+.lhint{font-family:monospace;font-size:10px;color:#AAAAAA;text-align:center;min-height:14px}
 #app{display:none;position:relative;z-index:1}
 @media(max-width:768px){.hw,.iw,.sg,.fg,.ag{grid-template-columns:1fr}.hr{display:none}.s{padding:40px 20px}nav{padding:12px 20px}.cw2{width:calc(100vw - 32px);right:16px}}
 </style>
@@ -151,12 +149,12 @@ nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid 
   <div class="lw">
     <div class="ll"><div class="lm">&#9889;</div><div class="ln">Extella Intelligence</div></div>
     <div class="lt1">&#1042;&#1072;&#1096; &#1091;&#1085;&#1080;&#1082;&#1072;&#1083;&#1100;&#1085;&#1099;&#1081; &#1089;&#1072;&#1081;&#1090;</div>
-    <div class="lt2">Fingerprint &#8594; &#1048;&#1048; &#8594; &#1090;&#1077;&#1084;&#1072; &#8594; &#1082;&#1086;&#1085;&#1090;&#1077;&#1085;&#1090;</div>
+    <div class="lt2">Fingerprint &#8594; &#1048;&#1048; &#8594; &#1087;&#1077;&#1088;&#1089;&#1086;&#1085;&#1072;&#1083;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;</div>
     <div class="ls">
       <div class="li" id="l1"><div class="ld2"></div><div class="llab">&#1057;&#1095;&#1080;&#1090;&#1099;&#1074;&#1072;&#1077;&#1084; &#1094;&#1080;&#1092;&#1088;&#1086;&#1074;&#1086;&#1081; &#1089;&#1083;&#1077;&#1076;</div><div class="lv" id="lv1"></div><div class="lck">&#10003;</div></div>
       <div class="li" id="l2"><div class="ld2"></div><div class="llab">&#1048;&#1048; &#1075;&#1077;&#1085;&#1077;&#1088;&#1080;&#1088;&#1091;&#1077;&#1090; &#1082;&#1086;&#1085;&#1090;&#1077;&#1085;&#1090;</div><div class="lv" id="lv2"></div><div class="lck">&#10003;</div></div>
       <div class="li" id="l3"><div class="ld2"></div><div class="llab">&#1047;&#1072;&#1075;&#1088;&#1091;&#1078;&#1072;&#1077;&#1084; &#1096;&#1072;&#1073;&#1083;&#1086;&#1085; &#1080;&#1079; Extella</div><div class="lv" id="lv3"></div><div class="lck">&#10003;</div></div>
-      <div class="li" id="l4"><div class="ld2"></div><div class="llab">&#1055;&#1088;&#1080;&#1084;&#1077;&#1085;&#1103;&#1077;&#1084; &#1090;&#1077;&#1084;&#1091; &#1080; &#1088;&#1077;&#1085;&#1076;&#1077;&#1088;&#1080;&#1084;</div><div class="lv" id="lv4"></div><div class="lck">&#10003;</div></div>
+      <div class="li" id="l4"><div class="ld2"></div><div class="llab">&#1056;&#1077;&#1085;&#1076;&#1077;&#1088;&#1080;&#1084; &#1089;&#1090;&#1088;&#1072;&#1085;&#1080;&#1094;&#1091;</div><div class="lv" id="lv4"></div><div class="lck">&#10003;</div></div>
     </div>
     <div class="lbar"><div class="lfill" id="lf"></div></div>
     <div class="lhint" id="lh">&#1080;&#1085;&#1080;&#1094;&#1080;&#1072;&#1083;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;...</div>
@@ -191,8 +189,7 @@ sc.textContent=jsCode;
 document.body.appendChild(sc);
 }catch(e){
 console.error('bootstrap:',e);
-ldH('Ошибка: '+e.message);
-setTimeout(function(){g('loader').style.display='none';g('app').style.display='block';},3000);
+document.getElementById('lh').textContent='Ошибка: '+e.message;
 }
 })();
 
