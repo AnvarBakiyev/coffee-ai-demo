@@ -205,10 +205,10 @@ nav{background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid 
   <div class="lw">
     <div class="ll"><div class="lm">&#9889;</div><div class="ln">Extella Intelligence</div></div>
     <div class="lt1">&#1042;&#1072;&#1096; &#1091;&#1085;&#1080;&#1082;&#1072;&#1083;&#1100;&#1085;&#1099;&#1081; &#1089;&#1072;&#1081;&#1090;</div>
-    <div class="lt2">6 секций &#8594; сборка &#8594; персонализация</div>
+    <div class="lt2">8 экспертов &#8594; A/B тест &#8594; персонализация</div>
     <div class="ls">
       <div class="li" id="l1"><div class="ld2"></div><div class="llab">&#1057;&#1095;&#1080;&#1090;&#1099;&#1074;&#1072;&#1077;&#1084; &#1094;&#1080;&#1092;&#1088;&#1086;&#1074;&#1086;&#1081; &#1089;&#1083;&#1077;&#1076;</div><div class="lv" id="lv1"></div><div class="lck">&#10003;</div></div>
-      <div class="li" id="l2"><div class="ld2"></div><div class="llab">&#1048;&#1048; &#1075;&#1077;&#1085;&#1077;&#1088;&#1080;&#1088;&#1091;&#1077;&#1090; &#1082;&#1086;&#1085;&#1090;&#1077;&#1085;&#1090;</div><div class="lv" id="lv2"></div><div class="lck">&#10003;</div></div>
+      <div class="li" id="l2"><div class="ld2"></div><div class="llab">A/B: два варианта параллельно</div><div class="lv" id="lv2"></div><div class="lck">&#10003;</div></div>
       <div class="li" id="l3"><div class="ld2"></div><div class="llab">&#1057;&#1073;&#1086;&#1088;&#1082;&#1072; 6 &#1089;&#1077;&#1082;&#1094;&#1080;&#1081; &#1080;&#1079; Extella</div><div class="lv" id="lv3"></div><div class="lck">&#10003;</div></div>
       <div class="li" id="l4"><div class="ld2"></div><div class="llab">&#1056;&#1077;&#1085;&#1076;&#1077;&#1088;&#1080;&#1084; &#1089;&#1090;&#1088;&#1072;&#1085;&#1080;&#1094;&#1091;</div><div class="lv" id="lv4"></div><div class="lck">&#10003;</div></div>
     </div>
@@ -227,25 +227,29 @@ var BASE='https://api.extella.ai';
 var H={'X-Auth-Token':_ET};
 function g(id){return document.getElementById(id)}
 function ldH(t){var el=g('lh');if(el)el.textContent=t}
-ldH('получаем секции из Extella...');
+ldH('получаем 8 экспертов из Extella...');
 var SECS=['coffee_sec_hero','coffee_sec_features','coffee_sec_gallery','coffee_sec_machine','coffee_sec_reviews','coffee_sec_commerce'];
+var ALL=[...SECS,'coffee_profiles_data','coffee_loader_js'];
 try{
-var reqs=[...SECS,'coffee_loader_js'].map(n=>fetch(BASE+'/api/expert/get/'+n,{headers:H}).then(r=>r.json()).then(d=>({n,code:d.expert_code||''})));
-var rs=await Promise.all(reqs);
-var secMap={};
-var jsCode='';
+var rs=await Promise.all(ALL.map(n=>fetch(BASE+'/api/expert/get/'+n,{headers:H}).then(r=>r.json()).then(d=>({n,code:d.expert_code||''}))));
+var secMap={},profilesCode='',jsCode='';
 rs.forEach(function(r){
-  if(r.n==='coffee_loader_js'){jsCode=r.code;}else{secMap[r.n]=r.code;}
+  if(r.n==='coffee_loader_js')jsCode=r.code;
+  else if(r.n==='coffee_profiles_data')profilesCode=r.code;
+  else secMap[r.n]=r.code;
 });
 var html=SECS.map(function(n){return secMap[n]||''}).join('\n');
-jsCode=jsCode.replace('%%OAK%%',_OB).replace('%%SB%%',_SB).replace('%%SBK%%',_SK);
 var tplEl=document.createElement('template');
 tplEl.id='tpl_base';
 tplEl.innerHTML=html;
 document.body.insertBefore(tplEl,g('loader'));
-var sc=document.createElement('script');
-sc.textContent=jsCode;
-document.body.appendChild(sc);
+var sc1=document.createElement('script');
+sc1.textContent=profilesCode;
+document.body.appendChild(sc1);
+jsCode=jsCode.replace('%%OAK%%',_OB).replace('%%SB%%',_SB).replace('%%SBK%%',_SK);
+var sc2=document.createElement('script');
+sc2.textContent=jsCode;
+document.body.appendChild(sc2);
 }catch(e){
 console.error('bootstrap:',e);
 var lh=g('lh');if(lh)lh.textContent='Ошибка: '+e.message;
